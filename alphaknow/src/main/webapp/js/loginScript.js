@@ -76,5 +76,5 @@ function login() {
 }
 
 function openPopup() {
-    window.open('project_findPass.html', '비밀번호 찾기', 'width=850, height=400');
+    window.open('project_findPass.jsp', '비밀번호 찾기', 'width=850, height=400');
 }
