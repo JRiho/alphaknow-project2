@@ -7,8 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MainPage</title>
-    <link rel="stylesheet" href="../css/equipment_plan.css">
-    <script src="../js/equipment_plan.js"></script>
+    <link rel="stylesheet" href="../css/downtimeRate.css">
+    <script src="../js/downtimeRate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <style>
 
@@ -18,7 +19,7 @@
 
     <%@ include file="../mainheader.jsp"%>
 
-        <div id="downtime_content">
+        <div id="content">
             <div id="downtime_menu">
                 <button type="button" class="toggleButton" data-target="PCB 로더">
                     PCB 로더
