@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://code.highcharts.com/highcharts.js"></script> <!-- Highcharts ë¼ì´ë¸ŒëŸ¬ë¦¬ -->
+    <script src="https://code.highcharts.com/highcharts.js"></script> <!-- Highcharts ¶óÀÌºê·¯¸® -->
 
 </head>
 <style>
@@ -23,17 +25,17 @@
     <script>
         const chart = Highcharts.chart('container', {
             chart: {
-                animation: false, // ì• ë‹ˆë©”ì´ì…˜ ë¹„í™œì„±í™”
+                animation: false, // ¾Ö´Ï¸ŞÀÌ¼Ç ºñÈ°¼ºÈ­
                 events: {
                     load: function () {
                         const series = this.series[0];
                         let second = 1;
                         const interval = setInterval(function () {
                             if (second <= 180) {
-                                // 180ì´ˆê¹Œì§€ 250ë„ë¡œ ì˜¬ë¼ê°
+                                // 180ÃÊ±îÁö 250µµ·Î ¿Ã¶ó°¨
                                 var temp = (250 - 50) / 180 * second + 50;
                             } else if (second <= 240) {
-                                // 180ì´ˆë¶€í„° 240ì´ˆê¹Œì§€ ì„œì„œíˆ ê°ì†Œí•˜ì—¬ 100ë„ì— ë„ë‹¬
+                                // 180ÃÊºÎÅÍ 240ÃÊ±îÁö ¼­¼­È÷ °¨¼ÒÇÏ¿© 100µµ¿¡ µµ´Ş
                                 var temp = - (150 / 60) * (second - 180) + 250;
                             } else {
                                 clearInterval(interval);
@@ -41,31 +43,31 @@
 
                             series.addPoint([second, temp], true, false);
                             second++;
-                        }, 1000); // 1ì´ˆë§ˆë‹¤ ì—…ë°ì´íŠ¸
+                        }, 1000); // 1ÃÊ¸¶´Ù ¾÷µ¥ÀÌÆ®
                     }
                 }
             },
             title: {
-                text: 'ë¦¬í”Œë¡œìš° ì˜¨ë„ ê·¸ë˜í”„'
+                text: '¸®ÇÃ·Î¿ì ¿Âµµ ±×·¡ÇÁ'
             },
             xAxis: {
                 type: 'linear',
                 title: {
-                    text: 'ì‹œê°„ (ì´ˆ)'
+                    text: '½Ã°£ (ÃÊ)'
                 },
-                tickInterval: 30 // 30ì´ˆ ê°„ê²©ìœ¼ë¡œ í‘œì‹œ
+                tickInterval: 30 // 30ÃÊ °£°İÀ¸·Î Ç¥½Ã
             },
             yAxis: {
                 title: {
-                    text: 'ì˜¨ë„ (Â°C)'
+                    text: '¿Âµµ (¡ÆC)'
                 },
                 min: 0,
                 max: 250,
                 tickInterval: 50
             },
             series: [{
-                name: 'ì˜¨ë„',
-                data: [] // ì´ˆê¸° ë°ì´í„°ëŠ” ë¹„ì›Œë‘ 
+                name: '¿Âµµ',
+                data: [] // ÃÊ±â µ¥ÀÌÅÍ´Â ºñ¿öµÒ
             }]
         });
     </script>
