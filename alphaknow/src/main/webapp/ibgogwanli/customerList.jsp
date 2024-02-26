@@ -1,36 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-<!-- 거래처등록 -->
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer List</title>
-
-    <!-- 팀원 css 및 은별 css -->
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/star.css">
-    <link rel="stylesheet" href="../css/calendar.css">
-
-    <!-- 팀원 js -->
-    <script src="../js/script.js"></script>
-
-    <!-- jQuery 라이브러리를 불러오는 코드 -->
+ <link rel="stylesheet" href="../css/star.css">
+ 
+ <!-- jQuery 라이브러리를 불러오는 코드 -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <!--  jQuery UI 라이브러리를 불러오는 코드 ex. 달력,드래그 // 압축x버전 -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- 우편번호검색 -->
     <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-    <!-- 나중에 ajax로 뺄 파일,, pop이랑 script기능 -->
-    <style>
-        .hide_column{
-            display : none;
-        }
-         
-        
-    </style>
-
-    <script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <script>
 
         //enter로 팝업창 끄고 input 다음 칸으로 이동
         window.addEventListener('keydown', function (event) {
@@ -345,98 +328,10 @@
 
 
     </script>
-
-
 </head>
-
 <body>
-    <!-- 전체를 감싸는 wrap -->
-
-    <div class="main_box">
-        <!-- <div class="left-box"> -->
-        <div id="header">
-            <ul>
-                <li id="li_icon">
-                    <a href="../mainPage.html"><img src="../img/logo.png" id="icon"></a>
-                </li>
-                <li id="li_search">
-                    <div id="search">
-                        <div id="search_size">
-                            <input type="text" id="search_txt" value="" placeholder="검색어를 입력해 주세요">
-                        </div>
-                        <div id="search_img">
-                            <img src="../img/search.avif" id="search_img1">
-                        </div>
-                    </div>
-                </li>
-                <li id="li_user_icon">
-                    <img src="../img/images.png" id="user_icon">
-                </li>
-            </ul>
-        </div>
-        <div id="menu_board">
-            <div><a href="../group/project_calendar.html">그룹웨어</a></div>
-            <div id="moniter">
-                모니터링
-            </div>
-            <div id="standard">
-                공정기준정보
-            </div>
-            <div id="plan">
-                생산계획관리
-            </div>
-
-            <div id="performance">
-                생산실적관리
-            </div>
-            <div id="prediction">
-                예측분석관리
-
-            </div>
-            <div id="inventory">재고관리</div>
-            <div id="store">
-                입고관리
-            </div>
-        </div>
-        <div id="monitering">
-            <div id="moniter1"><a href="../monitoring/monitoring_equipment.html">모니터링(장비)</a></div>
-            <div id="moniter2"><a href="../monitoring/project_operationRate.html">가동률현황</a></div>
-            <div id="moniter3"><a href="../monitoring/project_downtimeRate.html">비가동현황</a></div>
-            <div id="moniter4"><a href="../monitoring/monitoring_reflow.html">리플로우(온도)</a></div>
-        </div>
-        <div id="criteria">
-            <div id="standard1"><a href="../process/process_code.html">공정코드관리</a></div>
-            <div id="standard2"><a href="../process/process_produce.html">작업표준서</a></div>
-            <div id="standard3"><a href="../process/process_equipment.html">장비정보관리</a></div>
-            <div id="standard4"><a href="../process/process_part.html">부품정보관리</a></div>
-        </div>
-        <div id="planning">
-            <div id="planning1"><a href="../productionplan/equipment_plan.html">생산장비 계획관리</a></div>
-            <div id="planning3"><a href="../productionplan/employee_schedule.html">작업자별 일정현황</a></div>
-            <div id="planning2"><a href="../productionplan/production_plan_detail.html">세부공정생산 계획관리</a></div>
-            <div id="planning4"><a href="../productionplan/work_order_management.html">공정별 작업지시 관리</a></div>
-        </div>
-        <div id="performing">
-            <div id="perform1"><a href="../productionperf/production_performance_chart.html">생산계획대비 실적현황</a></div>
-            <div id="perform2"><a href="../productionperf/work_order_performance_chart.html">작업지시대비 실적현황</a></div>
-            <div id="perform3"><a href="../productionperf/equipment_production_performance_chart.html">장비별 생산실적현황</a></div>
-        </div>
-        <div id="predicting">
-            <div id="predicting1"><a href="../prediction/prediction_producting.html">생산량 예측분석</a></div>
-            <div id="predicting2"><a href="../prediction/prediction_quality.html">부품 결함예측</a></div>
-            <div id="predicting3"><a href="../prediction/prediction_quality_good.html">부품 품질예측</a></div>
-        </div>
-        <div id="invent">
-            <div id="invent1"><a href="../jaegogwanli/inventory_management.html">재고현황</a></div>
-            <div id="invent2"><a href="../jaegogwanli/outgoing.html">출하조회/입력</a></div>
-            <div id="invent3"><a href="../jaegogwanli/outgoing_directions.html">출하지시서 조회/입력</a></div>
-        </div>
-        <div id="storing">
-            <div id="storing1"><a href="../ibgogwanli/purchase.html">구매조회/입력</a></div>
-            <div id="storing2"><a href="../ibgogwanli/item_registration.html">품목별단가조회 및 변경</a></div>
-            <div id="storing3"><a href="../ibgogwanli/customerList.html">거래처 관리/등록</a></div>
-        </div>
-        <div id="content">
+	<%@ include file="../mainheader.jsp"%>
+	<div id="content">
 
 
             <div id="main_header">
