@@ -12,7 +12,7 @@ a {
     margin: 0 auto;
 }
 
-#day_list {
+#eq_list list {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
@@ -21,7 +21,7 @@ a {
     /* 항목들이 왼쪽에서 시작하도록 정렬 */
 }
 
-#day_list li {
+#eq_list list li {
 
     list-style: none;
     flex: 1 1 22%;
@@ -33,7 +33,7 @@ a {
     text-align: center;
 }
 
-#day_list li span {
+#eq_list li span {
     display: inline-block;
     /* span 요소가 텍스트를 중앙 정렬하도록 설정 */
     width: 100%;
@@ -42,7 +42,7 @@ a {
     font-size: 1em;
 }
 
-#day_list li img {
+#eq_list li img {
     width: 100%;
     /* 이미지가 li의 너비에 맞춰지도록 설정 */
     height: auto;
