@@ -1,0 +1,235 @@
+/* 전체 마진, 폰트 */
+body {
+    margin: 0px;
+    font-size: 1em;
+}
+
+/* 생산설비부품관리관리 헤더 */
+#headerj {
+    border-top: 2px solid #888888;
+    border-bottom: 2px solid #888888;
+
+    margin-top: 10px;
+    padding: 5px;
+
+    font-weight: bold;
+}
+
+
+/* 윗칸 div */
+.updiv {
+    /* border: 1px dotted black; */
+    width: 97%;
+    height: 350px;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 15px;
+    font-size: 0.8em;
+}
+
+
+/* 자재입고신청 div */
+#header1_div {
+    border: 1px solid #cccccc;
+    background-color: #eaeaea;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 14px;
+    font-weight: bold;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 자재입고신청 text div */
+#header1_div_text {
+    margin-left: 15px;
+}
+
+/* 선택계획수립 버튼 div */
+#btn_req_div {
+    margin-right: 15px;
+}
+
+/* 선택계획수립 버튼 */
+#btn_req {
+    background-color: #3498db;
+    border: 0px;
+    border-radius: 5px;
+    color: white;
+
+    cursor: pointer;
+}
+
+/* 선택계획수립 버튼 클릭 */
+#btn_req:active {
+    background-color: #346edb;
+}
+
+/* plan_req_div */
+#plan_req_div {
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    width: 100%;
+    height: 91%;
+
+    overflow-y: scroll;
+}
+
+/* plan_req_table 테두리 */
+#plan_req_table,
+#plan_req_table_thead tr,
+#plan_req_table_thead th,
+#plan_req_table_tbody tr,
+#plan_req_table_tbody td {
+    border: 1px solid #cccccc;
+    border-collapse: collapse;
+}
+
+/* #plan_req_table_thead 컬럼명 고정 */
+#plan_req_table_thead {
+    position: sticky;
+    top: 0;
+    background-color: #eaeaea;
+}
+
+/* plan_req_table 자체넓이 */
+#plan_req_table {
+    width: 100%;
+    height: 100%;
+}
+
+/* plan_req_table 컬럼 */
+#plan_req_table_thead th {
+    height: 40px;
+}
+
+/* plan_req_table 내용 */
+#plan_req_table_tbody td {
+    height: 30px;
+}
+
+
+
+
+
+
+
+
+/* 중앙구분선 */
+#center_line {
+    border-top: 1px solid #cccccc;
+
+    margin-top: 15px;
+}
+
+
+
+
+
+
+
+/* 아랫칸 div */
+.downdiv {
+    /* border: 1px dotted black; */
+    width: 97%;
+    height: 350px;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 15px;
+    font-size: 0.8em;
+}
+
+
+/* 계획확정란 header div */
+#header2_div {
+    border: 1px solid #cccccc;
+    background-color: #eaeaea;
+    /* border: 1px dotted black; */
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 14px;
+    font-weight: bold;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 계획확정란 header text div */
+#header2_div_text {
+    margin-left: 15px;
+}
+
+
+
+
+/* 선택계획취소, 수립 버튼 묶음 div*/
+#btn_wrap_div {
+    /* border: 1px dotted black; */
+    margin-right: 15px;
+}
+
+/* 선택계획취소, 수립 버튼 */
+#btn_accept,
+#btn_reqcancel {
+    background-color: #3498db;
+    border: 0px;
+    border-radius: 5px;
+    color: white;
+
+    margin-left: 7px;
+
+    cursor: pointer;
+}
+
+/* 선택계획취소, 수립 버튼 클릭 */
+#btn_accept:active,
+#btn_reqcancel:active {
+    background-color: #346edb;
+}
+
+
+/* plan_accept_div */
+#plan_accept_div {
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    width: 100%;
+    height: 91%;
+
+    overflow-y: scroll;
+}
+
+
+/* plan_accept_table 테두리 */
+#plan_accept_table,
+#plan_accept_table_thead tr,
+#plan_accept_table_thead th,
+#plan_accept_table_tbody tr,
+#plan_accept_table_tbody td {
+    border: 1px solid #cccccc;
+    /* border: 1px dotted black; */
+    border-collapse: collapse;
+}
+
+/* #plan_accept_table_thead 컬럼명 고정 */
+#plan_accept_table_thead {
+    position: sticky;
+    top: 0;
+    background-color: #eaeaea;
+}
+
+/* plan_accept_table 자체넓이 */
+#plan_accept_table {
+    width: 100%;
+    height: 100%;
+}
+
+/* plan_accept_table 컬럼 */
+#plan_accept_table_thead th {
+    height: 40px;
+}
+
+/* plan_accept_table 내용 */
+#plan_accept_table_tbody td {
+    height: 30px;
+}

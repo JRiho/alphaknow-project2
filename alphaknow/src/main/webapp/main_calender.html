@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Calendar</title>
+    <style>
+        #calendar {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        #calendar td, #calendar th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        #calendar th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .today {
+            background-color: #ffdead;
+        }
+    </style>
+</head>
+<body>
+    <h2>Interactive Calendar</h2>
+    <div>
+        <label for="year">Year: </label>
+        <select id="year" onchange="updateCalendar()"></select>
+        <label for="month">Month: </label>
+        <select id="month" onchange="updateCalendar()">
+            <option value="0">January</option>
+            <option value="1">February</option>
+            <option value="2">March</option>
+            <option value="3">April</option>
+            <option value="4">May</option>
+            <option value="5">June</option>
+            <option value="6">July</option>
+            <option value="7">August</option>
+            <option value="8">September</option>
+            <option value="9">October</option>
+            <option value="10">November</option>
+            <option value="11">December</option>
+        </select>
+    </div>
+    <table id="calendar">
+        <thead>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+        </thead>
+        <tbody id="calendar-body"></tbody>
+    </table>
+
+    <script>
+        function createYearDropdown() {
+            let yearDropdown = document.getElementById("year");
+            let currentYear = new Date().getFullYear();
+            for (let i = currentYear - 10; i <= currentYear + 10; i++) {
+                let option = document.createElement("option");
+                option.value = option.textContent = i;
+                yearDropdown.appendChild(option);
+            }
+            yearDropdown.value = currentYear;
+        }
+
+        function createCalendar(year, month) {
+            let calendarBody = document.getElementById("calendar-body");
+            calendarBody.innerHTML = "";
+
+            let firstDay = new Date(year, month).getDay();
+            let daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                let row = document.createElement("tr");
+
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDay) {
+                        let cell = document.createElement("td");
+                        row.appendChild(cell);
+                    } else if (date > daysInMonth) {
+                        break;
+                    } else {
+                        let cell = document.createElement("td");
+                        let cellText = document.createTextNode(date);
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                        date++;
+                    }
+                }
+
+                calendarBody.appendChild(row);
+                if (date > daysInMonth) {
+                    break;
+                }
+            }
+        }
+
+        function updateCalendar() {
+            let year = document.getElementById("year").value;
+            let month = document.getElementById("month").value;
+            createCalendar(year, month);
+        }
+
+        createYearDropdown();
+        updateCalendar();
+    </script>
+</body>
+</html>

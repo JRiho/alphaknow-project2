@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 출하현황 / 검색기능으로 조회까지 구현-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outgoing</title>
+   <!-- 팀원 css 및 은별 css -->
+   <link rel="stylesheet" href="../css/styles.css">
+   <link rel="stylesheet" href="../css/star.css">
+   <link rel="stylesheet" href="../css/calendar.css">
+   <!-- 달력 jquery -->
+   <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+   <!-- 팀원 js -->
+   <script src="../js/script.js"></script>
+   <!-- 달력 js -->
+   <script src="../js/calendar.js"></script>
+
+   <!-- jQuery 라이브러리를 불러오는 코드 -->
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+   <!--  jQuery UI 라이브러리를 불러오는 코드 ex. 달력,드래그 // 압축x버전 -->
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+    
+    #content_main_wrap {
+            width: 95%;
+            background-color: #fff;
+            margin: 2% auto 0 auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #status_search {
+            list-style: none;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+        .form {
+            width: 90%;
+        }
+        #status_search li {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .search_wrap{
+            display : flex;
+            width : 100%;
+        }
+        .search_wrap input{
+            /* display : flex; */
+            width : 40%;
+            /* height : 100%; */
+        }
+        .search_wrap .search_button{
+            width : 20%;
+        }
+
+        .title {
+            width: 20%;
+            margin: 2%;
+        }
+
+        .search_wrap input,
+        .date-select {
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        
+        .search_wrap input:hover,
+        .date-select:hover {
+            outline: 1px solid rgb(50, 50, 230);
+        }
+
+        .search_wrap input:focus,
+        .date-select:focus {
+            outline: 1px solid rgb(50, 50, 230);
+        }
+        
+        .search_wrap button{
+            /* width:50%; */
+            margin-left: 10px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+        a:active{
+            color : #000;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+    <!-- 전체를 감싸는 wrap -->
+    <div class="main_box">
+        <!-- <div class="left-box"> -->
+        <div id="header">
+            <ul>
+                <li id="li_icon">
+                    <a href="../mainPage.html"><img src="../img/logo.png" id="icon"></a>
+                </li>
+                <li id="li_search">
+                    <div id="search">
+                        <div id="search_size">
+                            <input type="text" id="search_txt" value="" placeholder="검색어를 입력해 주세요">
+                        </div>
+                        <div id="search_img">
+                            <img src="../img/search.avif" id="search_img1">
+                        </div>
+                    </div>
+                </li>
+                <li id="li_user_icon">
+                    <img src="../img/images.png" id="user_icon">
+                </li>
+            </ul>
+        </div>
+        <div id="menu_board">
+            <div><a href="../group/project_calendar.html">그룹웨어</a></div>
+            <div id="moniter">
+                모니터링
+            </div>
+            <div id="standard">
+                공정기준정보
+            </div>
+            <div id="plan">
+                생산계획관리
+            </div>
+
+            <div id="performance">
+                생산실적관리
+            </div>
+            <div id="prediction">
+                예측분석관리
+
+            </div>
+            <div id="inventory">재고관리</div>
+            <div id="store">
+                입고관리
+            </div>
+        </div>
+        <div id="monitering">
+            <div id="moniter1"><a href="../monitoring/monitoring_equipment.html">모니터링(장비)</a></div>
+            <div id="moniter2"><a href="../monitoring/project_operationRate.html">가동률현황</a></div>
+            <div id="moniter3"><a href="../monitoring/project_downtimeRate.html">비가동현황</a></div>
+            <div id="moniter4"><a href="../monitoring/monitoring_reflow.html">리플로우(온도)</a></div>
+        </div>
+        <div id="criteria">
+            <div id="standard1"><a href="../process/process_code.html">공정코드관리</a></div>
+            <div id="standard2"><a href="../process/process_produce.html">작업표준서</a></div>
+            <div id="standard3"><a href="../process/process_equipment.html">장비정보관리</a></div>
+            <div id="standard4"><a href="../process/process_part.html">부품정보관리</a></div>
+        </div>
+        <div id="planning">
+            <div id="planning1"><a href="../productionplan/equipment_plan.html">생산장비 계획관리</a></div>
+            <div id="planning3"><a href="../productionplan/employee_schedule.html">작업자별 일정현황</a></div>
+            <div id="planning2"><a href="../productionplan/production_plan_detail.html">세부공정생산 계획관리</a></div>
+            <div id="planning4"><a href="../productionplan/work_order_management.html">공정별 작업지시 관리</a></div>
+        </div>
+        <div id="performing">
+            <div id="perform1"><a href="../productionperf/production_performance_chart.html">생산계획대비 실적현황</a></div>
+            <div id="perform2"><a href="../productionperf/work_order_performance_chart.html">작업지시대비 실적현황</a></div>
+            <div id="perform3"><a href="../productionperf/equipment_production_performance_chart.html">장비별 생산실적현황</a></div>
+        </div>
+        <div id="predicting">
+            <div id="predicting1"><a href="../prediction/prediction_producting.html">생산량 예측분석</a></div>
+            <div id="predicting2"><a href="../prediction/prediction_quality.html">부품 결함예측</a></div>
+            <div id="predicting3"><a href="../prediction/prediction_quality_good.html">부품 품질예측</a></div>
+        </div>
+        <div id="invent">
+            <div id="invent1"><a href="../jaegogwanli/inventory_management.html">재고현황</a></div>
+            <div id="invent2"><a href="../jaegogwanli/outgoing.html">출하조회/입력</a></div>
+            <div id="invent3"><a href="../jaegogwanli/outgoing_directions.html">출하지시서 조회/입력</a></div>
+        </div>
+        <div id="storing">
+            <div id="storing1"><a href="../ibgogwanli/purchase.html">구매조회/입력</a></div>
+            <div id="storing2"><a href="../ibgogwanli/item_registration.html">품목별단가조회 및 변경</a></div>
+            <div id="storing3"><a href="../ibgogwanli/customerList.html">거래처 관리/등록</a></div>
+        </div>
+        <div id="content">
+
+            <div id="main_header">
+                <div id="list_title"> 출하현황 </div>
+            </div>
+            <div id="content_main_wrap">
+                <!-- 현황조회 box -->
+                <ul id="status_search">
+                    <li id="base_date">
+                        <div class="title">일자</div>
+
+                        <div class="form">
+                            <div class = "search_wrap">
+                            <!-- <div class="date-select-container"> -->
+                                <div id="start-date-select">
+                                    <select class="date-select" id="start-year"></select>
+                                    <select class="date-select" id="start-month"></select>
+                                    <select class="date-select" id="start-day"></select>
+                                    <span class="calendar-button" id="start-calendar">📅</span>
+                                </div>
+                                ~
+                                <div id="end-date-select">
+                                    <select class="date-select" id="end-year"></select>
+                                    <select class="date-select" id="end-month"></select>
+                                    <select class="date-select" id="end-day"></select>
+                                    <span class="calendar-button" id="end-calendar">📅</span>
+                                </div>
+
+                                <!-- 숨겨진 날짜 선택기 입력 필드 -->
+                                <input type='text' id='hidden-start-datepicker' />
+                                <input type='text' id='hidden-end-datepicker' />
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                    </li>
+                    <li id="cust">
+                        <div class="title">거래처</div>
+                        <div class="form">
+                            <div class="search_wrap">
+                                <input type="text" placeholder="거래처검색">
+                                <div class="search_button">
+                                    <button type="button" class="button_basic">검색</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li id="item_code">
+                        <div class="title">품목코드</div>
+                        <div class="form">
+                            <div class="search_wrap">
+                                <input type="text" placeholder="품목코드">
+                                <div class="search_button">
+                                    <button type="button" class="button_basic">검색</button>
+                                </div>
+                            </div>
+                    </li>
+                   
+
+                </ul>
+            </div>
+
+            <!-- content div 끝 -->
+        </div>
+        <footer>
+            <div id="main_button">
+                <!-- 신규등록 및 수정버튼-->
+                <button id="outgoing_search" class="change_button"><a href = "outgoing_list.html">검색</a></button>
+
+            </div>
+        </footer>
+
+</html>
