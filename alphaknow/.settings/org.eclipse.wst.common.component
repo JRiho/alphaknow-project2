@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-            
+                
+    
     
     <wb-module deploy-name="alphaknow">
-                        
+                                
+        
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-<<<<<<< HEAD
+                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-=======
->>>>>>> f69581fc8bb89c5c1b341c1ae3581d78c63f0bea
-                        
+                                
+        
         
         <property name="context-root" value="alphaknow"/>
-                        
+                                
+        
         
         <property name="java-output-path" value="/alphaknow/build/classes"/>
-                    
+                            
+    
     
     </wb-module>
-        
+            
+
 
 </project-modules>
