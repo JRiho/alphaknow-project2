@@ -34,7 +34,6 @@
                     "audio_codec", "#"]
                 , ["../img/battery_connerctor.png",
                     "battery_connerctor", "#"]
-
             ];
             listproduce.push(...produce);
 
