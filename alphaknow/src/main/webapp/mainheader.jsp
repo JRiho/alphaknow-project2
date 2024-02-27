@@ -100,4 +100,5 @@
             <div id="storing3"><a href="../ibgogwanli/customerList.jsp">거래처 관리/등록</a></div>
         </div>
         
+       </div>
         

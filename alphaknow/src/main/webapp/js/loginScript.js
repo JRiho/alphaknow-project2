@@ -1,4 +1,4 @@
-
+ 
 document.addEventListener('DOMContentLoaded', function () {
     let loginType_id = document.getElementById('loginType_id');
     let loginType_qr = document.getElementById('loginType_qr');
@@ -37,11 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    document.getElementById('pass').addEventListener('keyup', function (event) {
-        if (event.key === 'Enter') {
-            login(); // login 함수 호출
-        }
-    });
 });
 
 function login() {
