@@ -3,7 +3,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 900px;
+	height: 100%;
 	font-family: 'Malgun Gothic', 'Nanum Gothic', 'Gothic', sans-serif;
 	background-color: lightgray;
 }
@@ -11,7 +11,7 @@ body {
 form {
 	background-color: white;
 	width: 95%;
-	height: 95%;
+	height: 100%;
 	border-radius: 100px;
 	margin-top: 1%;
 }
@@ -116,6 +116,7 @@ input::placeholder {
 
 .chkbox {
 	margin-top: 50px;
+	padding-bottom: 23%;
 }
 
 #findPass {

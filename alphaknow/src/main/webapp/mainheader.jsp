@@ -38,7 +38,7 @@
             </ul>
         </div>
         <div id="menu_board">
-            <div><a href="../group/project_calendar.jsp">그룹웨어</a></div>
+            <div><a href="../group/project_board.jsp">게시판</a></div>
             <div id="moniter">
                 모니터링
             </div>
