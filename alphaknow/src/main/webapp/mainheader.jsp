@@ -1,14 +1,14 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<jsp lang="ko">
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MainPage</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <script src="../js/script.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js"></script>
 </head>
 <style>
 
@@ -99,6 +99,4 @@
             <div id="storing2"><a href="../ibgogwanli/item_registration.jsp">품목별단가조회 및 변경</a></div>
             <div id="storing3"><a href="../ibgogwanli/customerList.jsp">거래처 관리/등록</a></div>
         </div>
-        
-       </div>
         
