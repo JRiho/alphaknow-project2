@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MainPage</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/alphaknow/css/styles.css">
+    <script src="http://127.0.0.1:8080/alphaknow/js/script.js"></script>
 </head>
 <style>
 
@@ -20,7 +20,7 @@
         <div id="header">
             <ul>
                 <li id="li_icon">
-                    <a href="../mainPage.jsp"><img src="../img/logo.png" id="icon"></a>
+                    <a href="../mainPage.jsp"><img src="img/logo.png" id="icon"></a>
                 </li>
                 <li id="li_search">
                     <div id="search">
@@ -28,12 +28,12 @@
                             <input type="text" id="search_txt" value="" placeholder="검색어를 입력해 주세요">
                         </div>
                         <div id="search_img">
-                            <img src="../img/search.avif" id="search_img1">
+                            <img src="img/search.avif" id="search_img1">
                         </div>
                     </div>
                 </li>
                 <li id="li_user_icon">
-                    <img src="../img/images.png" id="user_icon">
+                    <img src="img/images.png" id="user_icon">
                 </li>
             </ul>
         </div>

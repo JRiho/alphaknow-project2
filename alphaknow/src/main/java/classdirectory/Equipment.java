@@ -14,6 +14,9 @@ public class Equipment {
     private String purchaseDate;
     private String historyRegistrationDate;
 
+    public Equipment() {
+    	
+    }
     
     public Equipment(int equipmentCode, String equipmentName, String managementNumber, String manufacturer, 
                      String purchasingCompanyName, String repairCompanyName, String manager, String location, 
