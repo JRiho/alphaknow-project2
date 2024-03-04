@@ -27,7 +27,7 @@
 						<div>
 							<div class="id_container">
 								<img src="img/id_icon.png" ondragstart="return false;"> <input
-									type="text" name="userid" placeholder="사원코드" id="id">
+									type="text" name="userid" placeholder="사원아이디" id="id">
 							</div>
 							<!-- 로그인 버튼 -->
 							<input type="submit" id="login" class="login_but" value="로그인"
