@@ -48,6 +48,9 @@ body {
     align-items: center;	
   }
 
+	#tbody_text{
+		font-size:0.6em;
+	}
   
   button {
     padding: 10px 20px;

@@ -111,6 +111,7 @@
             <div id="storing1"><a href="${pageContext.request.contextPath}/ibgogwanli/purchase.jsp">구매조회/입력</a></div>
             <div id="storing2"><a href="${pageContext.request.contextPath}/ibgogwanli/item_registration.jsp">품목별단가조회 및 변경</a></div>
             <div id="storing3"><a href="${pageContext.request.contextPath}/ibgogwanli/customerList.jsp">거래처 관리/등록</a></div>
+            <div id="storing4"><a href="${pageContext.request.contextPath}/employee">사원 등록</a></div>
         </div>
 
         

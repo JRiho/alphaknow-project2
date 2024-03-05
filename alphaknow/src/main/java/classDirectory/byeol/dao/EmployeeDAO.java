@@ -61,6 +61,7 @@ public class EmployeeDAO {
 		// 데이터베이스 오류가 발생한 경우 -1을 반환합니다.
 		return -1;
 	}
+	
 
 	// 조회하기 - select all
 	public List<EmployeeDTO> selectAllEmployees() {
@@ -96,48 +97,9 @@ public class EmployeeDAO {
 	}
 
 	// update
-	public int updateEmployee(EmployeeDTO employee) {
-        try  {
-            String sql = "UPDATE employee SET employeeName = ?, employeePhone = ?, employeeDate = ?, departmentCode = ?, jobGrade = ?, employeeId = ?, employeePw = ?, managerPhone = ?, employeementStatus = ? WHERE employeeKey = ?";
-
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, employee.getEmployeeName());
-            pstmt.setString(2, employee.getEmployeePhone());
-            pstmt.setDate(3, employee.getEmployeeDate());
-            pstmt.setInt(4, employee.getDepartmentCode());
-            pstmt.setString(5, employee.getJobGrade());
-            pstmt.setString(6, employee.getEmployeeId());
-            pstmt.setString(7, employee.getEmployeePw());
-            pstmt.setString(8, employee.getManagerPhone());
-            pstmt.setString(9, employee.getEmployeementStatus());
-            pstmt.setInt(10, employee.getEmployeeKey());
-
-            return pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // 데이터베이스 연결 종료
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return -1;
-}
 	
-	// 삭제하기
+	
+	// delete
+	
 
-	public void updateEmployee(int employeeKey, String employeeName, int departmentCode, String employeePhone,
-			String jobGrade, String managerPhone, Date employeeDate, String employeeId, String employeePw,
-			String employeementStatus) throws SQLException {
-		// TODO Auto-generated method stub
-		 String sql = "DELETE FROM employees WHERE employeeKey = ?";
-	        PreparedStatement pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, employeeKey);
-	        pstmt.executeUpdate();
-		
-	}
 }

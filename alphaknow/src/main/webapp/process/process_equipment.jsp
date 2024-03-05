@@ -19,67 +19,52 @@
 	href="${pageContext.request.contextPath}/css/process_equipment.css">
 <script src="${pageContext.request.contextPath}/js/equipment.js"></script>
 <script>
-	document
-			.addEventListener(
-					'DOMContentLoaded',
-					function() {
-						// "추가" 버튼 클릭 이벤트
-						document
-								.getElementById('addButton')
-								.addEventListener(
-										'click',
-										function(event) {
-											event.preventDefault();
-											var form = document
-													.getElementById('equipmentForm');
-											form.action = '/alphaknow/equipment?action=add';
-											form.submit();
-										});
+	document.addEventListener('DOMContentLoaded',function() {
+		// "추가" 버튼 클릭 이벤트
+		document.getElementById('addButton').addEventListener('click',function(event) {
+				event.preventDefault();
+				var form = document.getElementById('equipmentForm');
+				form.action = '/alphaknow/equipment?action=add';
+				form.submit();
+		});
 
-						// "수정" 버튼 클릭 이벤트
-						document
-								.getElementById('updateButton')
-								.addEventListener(
-										'click',
-										function() {
-											var selected = document
-													.querySelector('input[name="selectedEquipment"]:checked');
-											if (selected) {
-												var equipmentCode = selected.value;
-												var form = document
-														.getElementById('equipmentForm');
-												form.action = '/alphaknow/equipment?action=update&equipment_code='
-														+ equipmentCode;
-												form.submit();
-											} else {
-												alert('수정할 장비를 선택해주세요.');
-											}
-										});
-						// "삭제" 버튼 클릭 이벤트
-						document.getElementById('deleteButton').addEventListener('click', function() {
-						    var selected = document.querySelectorAll('input[name="selectedEquipment"]:checked');
-						    if (selected.length > 0) {
-						        var form = document.getElementById('equipmentForm');
-						        // 기존의 equipment_code 숨겨진 필드를 제거
-						        document.querySelectorAll('input[name="equipment_code"]').forEach(function(input) {
-						            form.removeChild(input);
-						        });
-						        // 선택된 각 체크박스에 대해 숨겨진 필드를 폼에 추가
-						        selected.forEach(function(checkbox) {
-						            var input = document.createElement('input');
-						            input.type = 'hidden';
-						            input.name = 'equipment_code';
-						            input.value = checkbox.value;
-						            form.appendChild(input);
-						        });
-						        form.action = '/alphaknow/equipment?action=delete';
-						        form.submit();
-						    } else {
-						        alert('삭제할 장비를 선택해주세요.');
-						    }
-						});
-
+		// "수정" 버튼 클릭 이벤트
+		document.getElementById('updateButton').addEventListener('click',function() {
+				var selected = document.querySelector('input[name="selectedEquipment"]:checked');
+					if (selected) {
+						var equipmentCode = selected.value;
+						var form = document.getElementById('equipmentForm');
+						form.action = '/alphaknow/equipment?action=update&equipment_code='+ equipmentCode;
+						form.submit();
+						} else {
+							alert('수정할 장비를 선택해주세요.');
+						}
+		});
+		// "삭제" 버튼 클릭 이벤트
+		document.getElementById('deleteButton').addEventListener('click', function() {
+				 var selected = document.querySelectorAll('input[name="selectedEquipment"]:checked');
+					if (selected.length > 0) {
+						var form = document.getElementById('equipmentForm');
+						// 기존의 equipment_code 숨겨진 필드를 제거
+						document.querySelectorAll('input[name="equipment_code"]').forEach(function(input) {
+						   form.removeChild(input);
 					});
+					// 선택된 각 체크박스에 대해 숨겨진 필드를 폼에 추가
+					selected.forEach(function(checkbox) {
+						var input = document.createElement('input');
+						input.type = 'hidden';
+						input.name = 'equipment_code';
+						input.value = checkbox.value;
+						form.appendChild(input);
+					});
+						form.action = '/alphaknow/equipment?action=delete';
+						form.submit();
+					} else {
+						alert('삭제할 장비를 선택해주세요.');
+					}
+			});
+
+		});
 	function allcheck() {
 	    // thead의 체크박스 상태 가져오기
 	    var isAllChecked = document.querySelector('input[name="allcheck"]').checked;
@@ -181,7 +166,7 @@
 				</tr>
 			</thead>
 
-			<tbody>
+			<tbody id = "tbody_text">
 				<%
 				List<Equipment> equipmentList = (List<Equipment>) request.getAttribute("equipmentList");
 				if (equipmentList != null) {
