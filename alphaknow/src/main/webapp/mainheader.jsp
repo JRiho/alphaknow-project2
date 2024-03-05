@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MainPage</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/alphaknow/css/styles.css">
+    <script src="http://127.0.0.1:8080/alphaknow/js/script.js"></script>
 </head>
 <style>
 
@@ -20,7 +20,7 @@
         <div id="header">
             <ul>
                 <li id="li_icon">
-                    <a href="../mainPage.jsp"><img src="../img/logo.png" id="icon"></a>
+                    <a href="../mainPage.jsp"><img src="img/logo.png" id="icon"></a>
                 </li>
                 <li id="li_search">
                     <div id="search">
@@ -28,12 +28,12 @@
                             <input type="text" id="search_txt" value="" placeholder="검색어를 입력해 주세요">
                         </div>
                         <div id="search_img">
-                            <img src="../img/search.avif" id="search_img1">
+                            <img src="img/search.avif" id="search_img1">
                         </div>
                     </div>
                 </li>
                 <li id="li_user_icon">
-                    <img src="../img/images.png" id="user_icon">
+                    <img src="img/images.png" id="user_icon">
                 </li>
             </ul>
         </div>
@@ -74,10 +74,10 @@
             <div id="standard4"><a href="../process/process_part.jsp">부품정보관리</a></div>
         </div>
         <div id="planning">
-            <div id="planning1"><a href="../productionplan/equipment_plan.jsp">생산장비 계획관리</a></div>
-            <div id="planning3"><a href="../productionplan/employee_schedule.jsp">작업자별 일정현황</a></div>
-            <div id="planning2"><a href="../productionplan/production_plan_detail.jsp">세부공정생산 계획관리</a></div>
-            <div id="planning4"><a href="../productionplan/work_order_management.jsp">공정별 작업지시 관리</a></div>
+            <div id="planning1"><a href="/alphaknow/productionplan/production_plan_management.jsp">생산계획관리</a></div>
+            <div id="planning3"><a href="/alphaknow/productionplan/production_order_management.jsp">생산지시관리</a></div>
+            <div id="planning2"><a href="/alphaknow/productionplan/process_order_plan.jsp">공정지시계획</a></div>
+            <div id="planning4"><a href="/alphaknow/productionplan/process_order.jsp">공정지시관리</a></div>
         </div>
         <div id="performing">
             <div id="perform1"><a href="../productionperf/production_performance_chart.jsp">생산계획대비 실적현황</a></div>
@@ -99,4 +99,9 @@
             <div id="storing2"><a href="../ibgogwanli/item_registration.jsp">품목별단가조회 및 변경</a></div>
             <div id="storing3"><a href="../ibgogwanli/customerList.jsp">거래처 관리/등록</a></div>
         </div>
+<<<<<<< HEAD
+        
+       
+=======
+>>>>>>> 1f0cb6e47c784fc07ffe231bb6affe9e725ff2f9
         

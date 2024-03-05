@@ -1,515 +1,227 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
- <link rel="stylesheet" href="../css/star.css">
- 
- <!-- jQuery 라이브러리를 불러오는 코드 -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <!--  jQuery UI 라이브러리를 불러오는 코드 ex. 달력,드래그 // 압축x버전 -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- 우편번호검색 -->
-    <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
- <script>
-
-        //enter로 팝업창 끄고 input 다음 칸으로 이동
-        window.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-
-                let isPopupVisible = document.getElementById('alert_div').style.display !== 'none';
-
-                if (isPopupVisible) {
-                    document.getElementById('alert_div').style.display = 'none';
-
-                    // 팝업을 닫고 'registration_pop'의 첫 번째 공백인 입력 필드에 포커스를 이동
-                    let inputs = Array.from(document.querySelectorAll('#registration_pop input'));
-                    let emptyInput = inputs.find(input => input.value === '');
-                    if (emptyInput) {
-                        emptyInput.focus();
-                    }
-                } else {
-                    // 팝업창이 없으면 현재 focus된 요소의 다음 요소를 찾음.
-                    let inputs = Array.from(document.querySelectorAll('input'));
-                    let currentIndex = inputs.findIndex(input => input === document.activeElement);
-                    let nextIndex = currentIndex + 1;
-
-                    if (nextIndex < inputs.length) {
-                        // input의 다음 요소로 focus를 이동
-                        inputs[nextIndex].focus();
-                    }
-                }
-            }
-        });;
+<title>CutstomerList</title>
+<!-- 은별 공통 css. JS -->
+<link rel="stylesheet" href="../css/eunbyeol_header,main.css">
+<script src="../js/eunbyeol.js"></script>
 
 
-        // 알림창 div pop
-        window.addEventListener('load', function () {
-            // alert pop-up
-            let alertDiv = document.getElementById('alert_div');
-            let alertMessage = document.getElementById('alert_message');
-            let alertClose = document.getElementById('alert_close');
-            function showAlert(message) {
-                alertMessage.textContent = message;
-                alertDiv.style.display = "block";
-            }
+<style>
 
-            alertClose.addEventListener('click', function () {
-                alertDiv.style.display = "none";
-            });
-
-            // confirm pop-up
-            // let confirmDiv = document.getElementById('confirm_div');
-            // let confirmMessage = document.getElementByI('confirm_message');
-            // let confirmClose = document.getElementById('confirm_close');
-            // function showConfrim(message) {
-            //     confirmMessage.textContent = message;
-            //     confirmDiv.style.display = "block";
-            // }
-
-            // confirmClose.addEventListener('click', function () {
-            //     confirmDiv.style.display = "none";
-            // });
-       
-
-        // 거래처 등록 div
-       
-            // 거래처 등록 및 수정 div pop-up 보여지고 닫기 누르면 꺼짐
-            let registration_pop = document.getElementById("registration_pop");
-            document.getElementById("new_register").addEventListener("click", function () {
-                registration_pop.style.display = "block";
-                document.getElementById("customer_code").focus();
-
-            });
-
-            document.getElementById("close").addEventListener("click", function () {
-                registration_pop.style.display = "none";
-            });
-
-            //다시쓰기 누르면 전부 지워짐
-            document.getElementById("reset").addEventListener("click", function () {
-                let inputs = document.querySelectorAll('#new_registration .text');
-                inputs.forEach(function (input) {
-                    input.value = '';
-                });
-
-                document.querySelector('input[name="use"][value="Yes"]').checked = true;
-                document.getElementById("customer_code").focus()
-            });
-
-
-
-            // ajax로 사업자 번호 인증
-            let isVerified = false;
-            document.getElementById("search_business_number").addEventListener("click", function () {
-                let num = document.getElementById('customer_code').value; //사업자번호
-                const data = {
-                    "b_no": [num]
-                };
-                $.ajax({
-                    url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=y4hEQwtYcmCk21BLxY%2FxX0dkfcHAqPKVY3d2dpTr08wACC8A9oYVAYV%2FI6BYT86j1Sm4BtNyjs1mt60wpbqR1g%3D%3D",  // serviceKey 값을 xxxxxx에 입력
-                    type: "POST",
-                    data: JSON.stringify(data),
-                    dataType: "JSON",
-                    contentType: "application/json",
-                    accept: "application/json",
-                    success: function (result) {
-
-                        // 운영중인 회사만 불러옴 b_stt_cd 01  : 계속사업자
-                        let valid = result.data[0]['b_stt_cd'];
-
-                        if (valid == '01') {
-                            showAlert("인증에 성공하였습니다.");
-                            isVerified = true;
-                        } else {
-                            showAlert("사업자 번호를 확인해주세요.");
-                            isVerified = false;
-                        }
-
-                    },
-                    error: function (result) {
-                        alert("에러가 발생했습니다.");
-                    }
-                });
-
-            });
-            // data를 입력하지 않으면 maintable에 업데이트 되지 않음
-            $(function () {
-
-                // table 내용이 모두 안 채워졌을 경우 return
-                $("#save").click(function () {
-                    let isEmpty = false;
-                    $(".text").each(function () {
-                        if ($(this).val() == "") {
-                            isEmpty = true;
-                            return false; // each loop를 중단
-                        }
-                    });
-
-                    if (isEmpty) {
-                        showAlert("내용을 입력해주세요.");
-                        return;
-                    } else if (!isVerified) {
-                        showAlert("사업자 인증을 해주세요.");
-                        return;
-                    } else {
-                        // 신규등록시 테이블 추가됨
-                        let customer_tbody = document.querySelector('table tbody');
-
-                        let new_row = customer_tbody.insertRow(0);
-
-                        let checkbox_cell = new_row.insertCell(0);
-                        let checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox_cell.appendChild(checkbox);
-
-                        let customer_code = document.querySelector("#customer_code").value;
-                        let code_cell = new_row.insertCell(1);
-                        code_cell.textContent = customer_code;
-
-                        let customer_name = document.querySelector("#customer_name").value;
-                        code_cell = new_row.insertCell(2);
-                        code_cell.textContent = customer_name;
-
-                        let ceo_name = document.querySelector("#ceo_name").value;
-                        code_cell = new_row.insertCell(3);
-                        code_cell.textContent = ceo_name;
-
-                        let business_type = document.querySelector("#business_type").value;
-                        let business_type_cell = new_row.insertCell(4);
-                        code_cell.classList.add('hide_column');
-                        business_type_cell.textContent = business_type;
-
-                        let tel_no = document.querySelector("#tel_no").value;
-                        code_cell = new_row.insertCell(5);
-                        code_cell.textContent = tel_no;
-
-                        let phone_no = document.querySelector("#phone_no").value;
-                        code_cell = new_row.insertCell(6);
-                        code_cell.textContent = phone_no;
-
-                        let fax = document.querySelector("#fax").value;
-                        code_cell = new_row.insertCell(7);
-                        code_cell.classList.add('hide_column');
-                        code_cell.textContent = fax;
-
-                        let email = document.querySelector("#email").value;
-                        code_cell = new_row.insertCell(8);
-                        code_cell.classList.add('hide_column');
-                        code_cell.textContent = email;
-
-                        let member_post = document.querySelector("#member_post").value;
-                        code_cell = new_row.insertCell(9);
-                        code_cell.classList.add('hide_column');
-                        code_cell.textContent = member_post;
-
-                        let member_addr = document.querySelector("#member_addr").value;
-                        code_cell = new_row.insertCell(10);
-                        code_cell.classList.add('hide_column');
-                        code_cell.textContent = member_addr;
-
-                        let useable = document.querySelector('input[name="use"]:checked').value;
-                        code_cell = new_row.insertCell(11);
-                        code_cell.textContent = useable;
-
-
-                        // 저장 후 div pop 닫기
-                        document.getElementById("registration_pop").style.display = "none";
-                    }
-                });
-                // 신규등록 눌렀을 때 input창 초기화
-                document.getElementById("new_register").addEventListener("click", function () {
-                    Array.from(document.querySelectorAll('.text')).forEach(input => {
-                        input.value = '';
-                    });
-
-                    document.getElementById("registration_pop").style.display = "block";
-                });
-
-            });
-
-            // '전체 선택' 
-            document.querySelector('table thead input[type="checkbox"]').addEventListener("change", function () {
-                let isChecked = this.checked;
-                Array.from(document.querySelectorAll('table tbody input[type="checkbox"]')).forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                });
-            });
-
-
-            //수정하기 버튼 누르면 체크된 table 불러옴
-            document.getElementById("edit").addEventListener("click", function () {
-                let selectedRows = document.querySelectorAll('table tbody input[type="checkbox"]:checked');
-
-                if (selectedRows.length === 1) {
-                    let parentRow = selectedRows[0].closest('tr');
-
-                    // 각 셀에서 텍스트 내용 가져오기
-                    let cells = parentRow.querySelectorAll('td');
-                    console.log(parentRow);
-                    console.log(cells);
-
-                    // 가져온 내용을 수정 폼에 설정하기
-                    document.getElementById("customer_code").value = cells[1].textContent; // 상호(이름)
-                    document.getElementById("customer_name").value = cells[2].textContent; // 상호(이름)
-                    document.getElementById("ceo_name").value = cells[3].textContent; // 대표자명
-                    document.getElementById("business_type").value = cells[4].textContent; // 업태 입력
-                    document.getElementById("tel_no").value = cells[5].textContent; // 전화
-                    document.getElementById("phone_no").value = cells[6].textContent; // 담당자번호
-                    document.getElementById("fax").value = cells[7].textContent; // Fax
-                    document.getElementById("email").value = cells[8].textContent; // Email
-                    document.getElementById("member_post").value = cells[9].textContent; // 주소1 우편번호
-                    document.getElementById("member_addr").value = cells[10].textContent; // 주소1
-
-                    // 사용구분 설정
-                    let useValue = cells[11].textContent;
-                    if (useValue === "Yes") {
-                        document.querySelector('input[name="use"][value="Yes"]').checked = true;
-                    } else {
-                        document.querySelector('input[name="use"][value="No"]').checked = true;
-                    }
-
-                    document.getElementById("registration_pop").style.display = "block";
-                } else if (selectedRows.length > 1) {
-                    showAlert("하나의 거래처만 선택해주세요.");
-                } else {
-                    showAlert("수정할 거래처를 선택해주세요.");
-                }
-
-                
-            });
-
-            // 삭제하기
-            document.getElementById("delete").addEventListener("click", function () {
-                let selectedRows = Array.from(document.querySelectorAll('table tbody input[type="checkbox"]:checked')).map(checkbox => checkbox.parentElement.parentElement);
-                if (selectedRows.length > 0) {
-                    selectedRows.forEach(row => row.remove());
-                } else {
-                    showAlert("삭제할 거래처를 선택해주세요.");
-                }
-            });
-        });
-
-
-        // 팝업 이동 jquery
-        $(function () {
-            $(".div_pop").draggable();
-        });
+/* new_register_pop , 신규등록 팝업 css */
+#new_register_pop_wrap {
+	width: 50%;
+	max-height: 80%;
+	position: fixed;
+	top: 30%;
+	right: 20%;
+}
 
 
 
 
-
-        // 우편번호검색
-        window.addEventListener('load', function () {
-            document.getElementById("find_addr").addEventListener("click", function () {
-                new daum.Postcode({
-                    oncomplete: function (data) {
-                        console.log(data);
-                        let road_addr = data.roadAddress; // 도로명 주소 변수
-                        let jibun_addr = data.jibunAddress; // 지번 주소 변수
-                        let zonecode = data.zonecode;
-                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        // 지번 or 번지 클릭하는거에 따라 그 클릭한 주소 값이 오게 됨
-                        document.getElementById("member_post").value = zonecode;
-                        if (road_addr !== '') {
-                            document.getElementById("member_addr").value = road_addr;
-                        }
-                        else if (jibun_addr !== '') {
-                            document.getElementById("member_addr").value = jibun_addr;
-                        }
-                    }
-                }).open();
-            });
-        });
-
-
-    </script>
+</style>
+<script>
+	
+</script>
 </head>
 <body>
 	<%@ include file="../mainheader.jsp"%>
+
 	<div id="content">
 
 
-            <div id="main_header">
-                <div id="list_title"> 거래처 리스트 </div>
-                <div id="list_search">
-                    <input type="text" class="list_search_text" value="" placeholder="입력 후 enter">
-                    <div id="searchImg">
-                        <img src="https://cdn-icons-png.freepik.com/512/2311/2311526.png?ga=GA1.1.1347059133.1702859932&"
-                             class="list_search_img" alt="검색">
-                    </div>
-                </div>
-            </div>
-            <!-- 메인시작 -->
-            <div id="main_content">
-                <table id="main_board">
-                    <!-- 테이블 너비 조절 -->
-                    <colgroup>
-                        <col style="width:5%" />
-                        <col style="width:10%" />
-                        <col style="width:30%" />
-                        <col style="width:15%" />
-                        <col style="width:15%" />
-                        <col style="width:15%" />
-                        <col style="width:10%" />
-
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th>거래처코드</th>
-                            <th>거래처명</th>
-                            <th>대표자명</th>
-                            <th>전화</th>
-                            <th>담당자 번호</th>
-                            <th>사용구분</th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                        <!-- 게시물 추가 예정 -->
-                    </tbody>
-
-                </table>
-
-            </div>
-            
-            <div id="main_button">
-                <!-- 신규등록 및 수정버튼-->
-                <button id="new_register" class="change_button">신규등록</button>
-                <button id="edit" class="change_button">수정하기</button>
-                <button id="delete" class="change_button">선택삭제</button>
-            </div>
-            <!-- 거래처 신규등록 및 수정 팝업 div -->
-            <div id="registration_pop" class="div_pop">
-                <div id="registration_pop_title">거래처등록(수정)
-
-                    <!-- 이미지 넣을수 있음 넣기<img id ="close_icon" src="https://images-ext-1.discordapp.net/external/2wxOzU_u31lZ2Gy1ymL2C93sDKD_G1VOeeBPynOlkh4/https/e1.pngegg.com/pngimages/288/836/png-clipart-black-n-white-x-mark.png?format=webp&quality=lossless&width=705&height=401"> -->
-
-                </div>
-                <div id="pop_title">거래처등록(수정)</div>
-                <!-- 거래처 등록 및 수정 table -->
-                <div id="registration_pop_table_wrap">
-
-                    <table id="new_registration">
-                        <colgroup>
-                            <col style="width : 30%" />
-                            <col style="width : 70%" />
-                        </colgroup>
-                        <tr>
-                            <td>거래처코드</td>
-                            <td colspan="2" class="input_group">
-                                <button type="button" id="search_business_number" class="table_button">사업자번호조회</button>
-                                <input type="text" class="text" id="customer_code" placeholder="사업자번호">
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>상호(이름)</td>
-                            <td><input type="text" class="text" id="customer_name" placeholder="상호(이름)"></td>
-                        </tr>
-                        <tr>
-                            <td>대표자명</td>
-                            <td><input type="text" class="text" id="ceo_name" placeholder="대표자명"></td>
-                        </tr>
-                        <tr>
-                            <td>업태</td>
-                            <td><input type="text" class="text" id="business_type" placeholder="업태 입력"></td>
-                        </tr>
-                        <tr>
-                            <td>전화</td>
-                            <td><input type="text" class="text" id="tel_no" placeholder="전화"></td>
-                        </tr>
-                        <tr>
-                            <td>담당자번호</td>
-                            <td><input type="text" class="text" id="phone_no" placeholder="휴대폰"></td>
-                        </tr>
-                        <tr>
-                            <td>Fax</td>
-                            <td><input type="text" class="text" id="fax" placeholder="팩스"></td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td><input type="text" class="text" id="email" placeholder="이메일"></td>
-                        </tr>
-                        <tr>
-                            <td> 주소1 우편번호 </td>
-                            <td class="input_group">
-                                <button type="button" id="find_addr" class="table_button">주소검색</button>
-                                <input type="text" class="text" id="member_post" placeholder="우편번호">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td> 주소1 </td>
-                            <td><input type="text" class="text" id="member_addr" placeholder="주소"></td>
-                        </tr>
-                        <tr>
-                            <td> 사용구분</td>
-                            <td colspan="2">
-                                <input type="radio" name="use" value="Yes" checked>Yes
-                                <input type="radio" name="use" value="No">No
-                            </td>
-                        </tr>
-
-                    </table>
-                </div>
-
-                <div id="setting_button">
-                    <button id="save" class="change_button">저장</button>
-                    <button id="reset" class="button_basic">다시쓰기</button><!--type submit 으로 수정예정-->
-                    <button id="close" class="button_basic">닫기</button>
-                </div>
-                </div>
-
-            
-            <!-- alert div -->
-
-            <div id="alert_div" class="div_pop">
-                <div id="alert_title" class="alert_hidden">
-                    알림
-                </div>
-                <div class="alert_content" id="alert_message">
-                    내용
-
-                </div>
-                <div id="alert_button">
-                    <button id="alert_close" class="button_basic">취소</button>
-                </div>
-            </div>
-
-            <!-- confirm div -->
-            <!-- <div id="confirm_div" class="div_pop">
-                <div id="confirm_title" class="confirm_hidden">
-                    알림
-                </div>
-                <div class="confirm_content" id="confirm_message">
-                    내용
-
-                </div>
-                <div id="confirm_button">
-                    <button id="confirm_save" class="button_basic">확인</button>
-                    <button id="confirm_close" class="button_basic">취소</button>
-                </div>
-            </div>  -->
+		<!-- content header 헤더 영역 -->
+		<div id="main_header">
+			<div id="content_header_title">거래처 리스트</div>
+			<div id="content_header_search">
+				<input type="text" id="list_search_text" value=""
+					placeholder="입력 후 [Enter]">
+				<button type="button" id="content_header_search_button"
+					class="change_button">Search</button>
+			</div>
+		</div>
 
 
-        </div>
-        <div id="footer">
-            <!-- 페이지 넘버 , 페이지네이션 추가예정, 1차는 기본 박스로 -->
-            <div id="pagination">
-                <ul class="page-box">
-                    <li>
-                        << </li>
-                    <li>1</li>
-                    <li>>></li>
-                </ul>
-            </div>
-        </div>
-    
+		<!-- content main 메인 영역 페이지네이션까지-->
+		<div id=main_content_wrap>
+
+			<!-- content main table, 메인 테이블 -->
+			<table id="main_board">
+				<!-- 테이블 너비 조절 -->
+				<colgroup>
+					<col style="width: 5%" />
+					<col style="width: 10%" />
+					<col style="width: 30%" />
+					<col style="width: 15%" />
+					<col style="width: 15%" />
+					<col style="width: 15%" />
+					<col style="width: 10%" />
+
+				</colgroup>
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th>거래처코드</th>
+						<th>거래처명</th>
+						<th>대표자명</th>
+						<th>전화</th>
+						<th>담당자 번호</th>
+						<th>재직여부</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					<!-- 게시물 추가 예정 -->
+				</tbody>
+
+			</table>
+			<div id="content_main_button">
+				<!-- 신규등록 및 수정버튼-->
+				<button id="new_register" class="change_button">신규등록</button>
+				<button id="edit" class="button_basic">수정하기</button>
+				<button id="delete" class="button_basic">선택삭제</button>
+			</div>
+			<div id=pagenation></div>
+			<!-- content main wrap div 끝 -->
+		</div>
+
+
+
+
+
+		<!-- content div 끝 -->
+	</div>
+
+	<!-- new_register 신규등록 팝업 div -->
+	<div class="pop_wrap" id="new_register_pop_wrap">
+		<div class="pop_header">
+			<div class="pop_header_title">거래처등록</div>
+		</div>
+		<div class="pop_content_wrap">
+			<div class="pop_content_header">
+				<div class="pop_content_title">거래처 등록</div>
+			</div>
+			<div class="pop_content_com">
+				<div class="wrapper_ul">
+					<ul class="wrapper_li">
+						<li id="customer_code" class="whole_row">
+							<div class="title">거래처코드</div>
+							<div class="form">
+								<div class="control_set">
+									<button type="button" class="button_basic">사업자번호조회</button>
+									<input type="text" placeholder="사업자 번호 입력">
+								</div>
+							</div>
+						</li>
+						<li id="customer_name" class="whole_row">
+							<div class="title">상호(이름)</div>
+							<div class="form">
+								<div class="control_set">
+									<input type="text" placeholder="상호명 입력">
+								</div>
+							</div>
+						</li>
+						<li id="ceo_name" class="whole_row">
+							<div class="title">대표자명</div>
+							<div class="form">
+								<div class="control_set">
+									<input type="text" placeholder="대표자명 입력">
+								</div>
+							</div>
+						</li>
+						<li id="business_type" class="whole_row">
+							<div class="title">업태</div>
+							<div class="form">
+								<div class="control_set">
+									<input type="text" placeholder="업태 입력">
+								</div>
+							</div>
+						</li>
+						<li id="business_type" class="whole_row">
+							<div class="title">업태</div>
+							<div class="form">
+								<div class="control_set">
+									<input type="text" placeholder="업태 입력">
+								</div>
+							</div>
+						</li>
+						<li id="tel_no" class="whole_row">
+							<div class="title">전화</div>
+							<div class="form">
+								<div class="control_set">
+									<input type="text" placeholder="전화번호 입력">
+								</div>
+							</div>
+						</li>
+						<li id="phone_no" class="whole_row">
+							<div class="title">담당자번호</div>
+							<div class="form">
+								<div class="control_set">
+									<input type="text" placeholder="담당자 번호 입력">
+								</div>
+							</div>
+						</li>
+						<li id="fax" class="whole_row">
+							<div class="title">Fax</div>
+							<div class="form">
+								<div class="control_set">
+									<input type="text" placeholder="팩스 번호 입력">
+								</div>
+							</div>
+						</li>
+						<li id="email" class="whole_row">
+							<div class="title">Email</div>
+							<div class="form">
+								<div class="control_set">
+									<input type="text" placeholder="이메일 주소 입력">
+								</div>
+							</div>
+						</li>
+						<li id="post" class="whole_row">
+							<div class="title">주소1 우편번호</div>
+							<div class="form">
+								<div class="control_set">
+									<button type="button" class="button_basic">주소검색</button>
+									<input type="text" placeholder="주소1 우편번호">
+								</div>
+							</div>
+						</li>
+						<li id="address" class="whole_row">
+							<div class="title">주소1</div>
+							<div class="form">
+								<div class="control_set">
+									<input type="text" placeholder="주소1">
+								</div>
+							</div>
+						</li>
+						<li id="employment_status" class="whole_row">
+							<div class="title">재직여부</div>
+							<div class="form">
+								<div class="control_set">
+								<div class="use_check">
+									<input type="radio" name="use" value="Yes" checked>재직
+									<input type="radio" name="use" value="No">퇴사
+								</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="pop_footer_wrap">
+				<div class="pop_footer">
+					<button type="button" class="change_button">저장</button>
+					<button type="button" class="button_basic">다시쓰기</button>
+					<button type="button" class="button_basic">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>

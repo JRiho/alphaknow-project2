@@ -2,10 +2,9 @@ body {
     /* margin: 1; */
     max-height: 100vh;
     font-family: 'Malgun Gothic', 'Nanum Gothic', 'Gothic', sans-serif;
-    background-color: #FAFAFA;
+    background-color: rgb(233,236,239);
     /* background-image: url(../img/background.webp); */
     z-index: -1;
-    background-color: lightgray;
     font-size: 1em;
 }
 

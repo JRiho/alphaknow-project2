@@ -1,30 +1,102 @@
-<%@ page import="java.util.ArrayList, java.util.List"%>
-<%@ page import="classdirectory.Equipment"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, java.util.List"%>
+<%@ page import="classdirectory.Equipment"%>
 
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8">	
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>장비정보관리</title>
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/process_equipment.css">
-<script src="${pageContext.request.contextPath}/js/equipment.js"></script>
+<link rel="stylesheet"
+	href="http://127.0.0.1:8080/alphaknow/css/process_equipment.css">
+<script src="http://127.0.0.1:8080/alphaknow/js/equipment.js"></script>
+<script>
+	document
+			.addEventListener(
+					'DOMContentLoaded',
+					function() {
+						// "추가" 버튼 클릭 이벤트
+						document
+								.getElementById('addButton')
+								.addEventListener(
+										'click',
+										function(event) {
+											event.preventDefault();
+											var form = document
+													.getElementById('equipmentForm');
+											form.action = '/alphaknow/equipment?action=add';
+											form.submit();
+										});
 
+						// "수정" 버튼 클릭 이벤트
+						document
+								.getElementById('updateButton')
+								.addEventListener(
+										'click',
+										function() {
+											var selected = document
+													.querySelector('input[name="selectedEquipment"]:checked');
+											if (selected) {
+												var equipmentCode = selected.value;
+												var form = document
+														.getElementById('equipmentForm');
+												form.action = '/alphaknow/equipment?action=update&equipment_code='
+														+ equipmentCode;
+												form.submit();
+											} else {
+												alert('수정할 장비를 선택해주세요.');
+											}
+										});
+						// "삭제" 버튼 클릭 이벤트
+						document.getElementById('deleteButton').addEventListener('click', function() {
+						    var selected = document.querySelectorAll('input[name="selectedEquipment"]:checked');
+						    if (selected.length > 0) {
+						        var form = document.getElementById('equipmentForm');
+						        // 기존의 equipment_code 숨겨진 필드를 제거
+						        document.querySelectorAll('input[name="equipment_code"]').forEach(function(input) {
+						            form.removeChild(input);
+						        });
+						        // 선택된 각 체크박스에 대해 숨겨진 필드를 폼에 추가
+						        selected.forEach(function(checkbox) {
+						            var input = document.createElement('input');
+						            input.type = 'hidden';
+						            input.name = 'equipment_code';
+						            input.value = checkbox.value;
+						            form.appendChild(input);
+						        });
+						        form.action = '/alphaknow/equipment?action=delete';
+						        form.submit();
+						    } else {
+						        alert('삭제할 장비를 선택해주세요.');
+						    }
+						});
+
+					});
+	function allcheck() {
+	    // thead의 체크박스 상태 가져오기
+	    var isAllChecked = document.querySelector('input[name="allcheck"]').checked;
+	    
+	    // tbody 내의 모든 체크박스 선택/선택 해제
+	    document.querySelectorAll('input[name="selectedEquipment"]').forEach(function(checkbox) {
+	        checkbox.checked = isAllChecked;
+	    });
+	}
+</script>
 </head>
 
 <body>
 	<%@ include file="../mainheader.jsp"%>
 	<div>
 		<h1>공정기준 - 장비정보관리</h1>
-		<form action="/alphaknow/equipment" method="post">
+		<form id="equipmentForm" action="/alphaknow/equipment" method="post">
 			<table class="equipment_table">
 				<tr>
 					<td><span>장비명:</span></td>
@@ -33,9 +105,8 @@
 					<td><input type="text" name="management_number"></td>
 					<td><span>제조사:</span></td>
 					<td><input type="text" name="manufacturer"></td>
-					<td rowspan="4"><input type="submit" value="추가"
-						class="change_button"></td>
-
+					<td rowspan="2"><button type="button" id="addButton"
+							class="change_button">추가</button></td>
 				</tr>
 				<tr>
 					<td><span>구입업체명:</span></td>
@@ -55,6 +126,8 @@
 							<option value="T">True</option>
 							<option value="F">False</option>
 					</select></td>
+					<td rowspan="1"><button type="button" id="updateButton"
+							class="change_button">수정</button></td>
 				</tr>
 				<tr>
 					<td><span>구매일:</span></td>
@@ -63,14 +136,11 @@
 					<td><span>이력등록일:</span></td>
 					<td colspan="2"><input type="text" id="datepicker2"
 						name="history_registration_date"></td>
+					<td rowspan="1"><button type="button" id="deleteButton"
+							class="change_button">삭제</button></td>
 				</tr>
 			</table>
 		</form>
-		<div class="delete-button-container">
-			<form action="DeleteEquipmentServlet" method="post">
-				<input type="submit" value="삭제" class="change_button">
-			</form>
-		</div>
 	</div>
 
 
@@ -94,7 +164,8 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th>선택</th>
+					<th><input type="checkbox" name="allcheck"
+						onclick="allcheck()"></th>
 					<th>고유번호</th>
 					<th>장비명</th>
 					<th>관리번호</th>
@@ -117,7 +188,8 @@
 					for (Equipment equipment : equipmentList) {
 				%>
 				<tr>
-					<td><input type="checkbox"></td>
+					<th><input type="checkbox" name="selectedEquipment"
+						value="<%=equipment.getEquipmentCode()%>"></th>
 					<td><%=equipment.getEquipmentCode()%></td>
 					<td><%=equipment.getEquipmentName()%></td>
 					<td><%=equipment.getManagementNumber()%></td>

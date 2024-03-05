@@ -1,13 +1,6 @@
 package process;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -22,103 +15,110 @@ import classdirectory.Equipment;
 public class EquipmentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String driver="oracle.jdbc.driver.OracleDriver";
-	private static final String url="jdbc:oracle:thin:@112.148.46.134:51521:xe";
-	private static final String user= "alphaknow";
-	private static final String password="qwer1234";
-	
+	private EquipmentDAO equipmentDAO = new EquipmentDAOsql();
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Equipment> equipmentList = new ArrayList<>();
 		try {
-			Class.forName(driver);
-			try (Connection conn = DriverManager.getConnection(url, user, password);
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery("SELECT * FROM Equipment")) {
-
-				while (rs.next()) {
-					Equipment equipment = new Equipment(rs.getInt("equipment_code"), rs.getString("equipment_name"),
-							rs.getString("management_number"), rs.getString("manufacturer"),
-							rs.getString("purchasing_company_name"), rs.getString("repair_company_name"),
-							rs.getString("manager"), rs.getString("location"), rs.getString("usage"),
-							rs.getString("usage_status"), rs.getString("purchase_date"),
-							rs.getString("history_registration_date"));
-					equipmentList.add(equipment);
-				}
-			}
+			List<Equipment> equipmentList = equipmentDAO.getAllEquipments();
+			request.setAttribute("equipmentList", equipmentList);
+			request.getRequestDispatcher("process/process_equipment.jsp").forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		request.setAttribute("equipmentList", equipmentList);
-		// response.sendRedirect("process/process_equipment.jsp"); // 이전 코드 주석 처리
-		request.getRequestDispatcher("process/process_equipment.jsp").forward(request, response); // 수정된 코드
+			throw new ServletException(e);
+		}	
 	}
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		String equipmentName = req.getParameter("equipment_name");
-		String managementNumber = req.getParameter("management_number");
-		String manufacturer = req.getParameter("manufacturer");
-		String purchasingCompanyName = req.getParameter("purchasing_company_name");
-		String repairCompanyName = req.getParameter("repair_company_name");
-		String manager = req.getParameter("manager");
-		String location = req.getParameter("location");
-		String usage = req.getParameter("usage");
-		String usageStatus = req.getParameter("usage_status");
-		String purchaseDate = req.getParameter("purchase_date"); // 'YYYY-MM-DD' 형식이라고 가정
-		String historyRegistrationDate = req.getParameter("history_registration_date"); // 'YYYY-MM-DD' 형식이라고 가정
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			Class.forName(driver);
-			Connection con = DriverManager.getConnection(url, user, password);
-
-			String seqSql = "SELECT equipment_seq.NEXTVAL FROM DUAL";
-			pstmt = con.prepareStatement(seqSql);
-			rs = pstmt.executeQuery();
-			int equipmentCode = 0;
-			if (rs.next()) {
-				equipmentCode = rs.getInt(1); // SEQUENCE로부터 생성된 고유번호
+		String action = request.getParameter("action");
+		// 폼 데이터 추출
+		if ("add".equals(action)) {
+			String equipmentCodeStr = request.getParameter("equipment_code");
+			int equipmentCode = 0; // 기본값 설정
+			if (equipmentCodeStr != null && !equipmentCodeStr.isEmpty()) {
+				try {
+					equipmentCode = Integer.parseInt(equipmentCodeStr);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
 			}
-			rs.close();
-			pstmt.close();
 
-			String insertSql = "INSERT INTO Equipment (equipment_code, equipment_name, management_number, manufacturer, "
-					+ "purchasing_company_name, repair_company_name, manager, location, usage, usage_status, "
-					+ "purchase_date, history_registration_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), TO_DATE(?, 'YYYY-MM-DD'))";
-			pstmt = con.prepareStatement(insertSql);
+			String equipmentName = request.getParameter("equipment_name");
+			String managementNumber = request.getParameter("management_number");
+			String manufacturer = request.getParameter("manufacturer");
+			String purchasingCompanyName = request.getParameter("purchasing_company_name");
+			String repairCompanyName = request.getParameter("repair_company_name");
+			String manager = request.getParameter("manager");
+			String location = request.getParameter("location");
+			String usage = request.getParameter("usage");
+			String usageStatus = request.getParameter("usage_status");
+			String purchaseDate = request.getParameter("purchase_date");
+			String historyRegistrationDate = request.getParameter("history_registration_date");
 
-			pstmt.setInt(1, equipmentCode);
-			pstmt.setString(2, equipmentName);
-			pstmt.setString(3, managementNumber);
-			pstmt.setString(4, manufacturer);
-			pstmt.setString(5, purchasingCompanyName);
-			pstmt.setString(6, repairCompanyName);
-			pstmt.setString(7, manager);
-			pstmt.setString(8, location);
-			pstmt.setString(9, usage);
-			pstmt.setString(10, usageStatus);
-			pstmt.setString(11, purchaseDate);
-			pstmt.setString(12, historyRegistrationDate);
+			// Equipment 객체 생성
+			Equipment equipment = new Equipment(equipmentCode, equipmentName, managementNumber, manufacturer,
+					purchasingCompanyName, repairCompanyName, manager, location, usage, usageStatus, purchaseDate,
+					historyRegistrationDate);
 
-			pstmt.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
 			try {
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
+				// EquipmentDAO를 사용하여 데이터베이스에 저장
+				equipmentDAO.addEquipment(equipment);
+				response.sendRedirect("equipment"); // 성공적으로 추가한 후, 장비 목록 페이지로 리다이렉트
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		resp.sendRedirect("equipment");
+		} else if ("delete".equals(action)) {
+		    String[] equipmentCodes = request.getParameterValues("equipment_code");
+		    if (equipmentCodes != null) {
+		        for (String codeStr : equipmentCodes) {
+		            int equipmentCode = Integer.parseInt(codeStr);
+		            try {
+		                equipmentDAO.deleteEquipment(equipmentCode);
+		            } catch (Exception e) {
+		                e.printStackTrace(); // 오류 처리
+		            }
+		        }
+		        response.sendRedirect("equipment"); // 삭제 후 페이지 리다이렉트
+		    }
+		} else if ("update".equals(action)) {
+			// 장비 정보 추출 (폼 데이터)
+			String equipmentCodeStr = request.getParameter("equipment_code");
+			
+			int equipmentCode = Integer.parseInt(request.getParameter("equipment_code"));
+			String equipmentName = request.getParameter("equipment_name");
+			String managementNumber = request.getParameter("management_number");
+			String manufacturer = request.getParameter("manufacturer");
+			String purchasingCompanyName = request.getParameter("purchasing_company_name");
+			String repairCompanyName = request.getParameter("repair_company_name");
+			String manager = request.getParameter("manager");
+			String location = request.getParameter("location");
+			String usage = request.getParameter("usage");
+			String usageStatus = request.getParameter("usage_status");
+			String purchaseDate = request.getParameter("purchase_date");
+			String historyRegistrationDate = request.getParameter("history_registration_date");
 
+			
+			Equipment equipment = new Equipment();
+			equipment.setEquipmentCode(equipmentCode); // 장비 코드 설정
+			equipment.setEquipmentName(equipmentName); // 장비 이름 설정
+			equipment.setManagementNumber(managementNumber); // 관리 번호 설정
+			equipment.setManufacturer(manufacturer); // 제조사 설정
+			equipment.setPurchasingCompanyName(purchasingCompanyName); // 구입 업체명 설정
+			equipment.setRepairCompanyName(repairCompanyName); // 수리 업체명 설정
+			equipment.setManager(manager); // 관리자 설정
+			equipment.setLocation(location); // 위치 설정
+			equipment.setUsage(usage); // 용도 설정
+			equipment.setUsageStatus(usageStatus); // 사용 여부 설정 ('T' 또는 'F')
+			equipment.setPurchaseDate(purchaseDate); // 구매일 설정
+			equipment.setHistoryRegistrationDate(historyRegistrationDate); // 이력 등록일 설정
+			try {
+				equipmentDAO.updateEquipment(equipment);
+				response.sendRedirect("equipment");
+			} catch (Exception e) {
+				e.printStackTrace();
+				// 오류 처리 로직
+			}
+		}
 	}
 }
