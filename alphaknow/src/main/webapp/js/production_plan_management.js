@@ -44,9 +44,9 @@ function addRow() {
 	let cell8 = newRow.insertCell(7);
 	cell8.innerHTML = "<input type='text' name='remainAmountAdd' value='' placeholder='num'>";
 	let cell9 = newRow.insertCell(8);
-	cell9.innerHTML = "<input type='text' name='startdateAdd' value='' placeholder='xxxx-xx-xx'>";
+	cell9.innerHTML = "<input type='date' name='startdateAdd' value='' placeholder='xxxx-xx-xx'>";
 	let cell10 = newRow.insertCell(9);
-	cell10.innerHTML = "<input type='text' name='enddateAdd' value='' placeholder='xxxx-xx-xx'>";
+	cell10.innerHTML = "<input type='date' name='enddateAdd' value='' placeholder='xxxx-xx-xx'>";
 }
 
 

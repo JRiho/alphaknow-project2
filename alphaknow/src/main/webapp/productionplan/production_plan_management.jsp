@@ -73,9 +73,9 @@
 									value=<%=item.getProductionAmount()%> readonly></td>
 								<td><input type="text" name="remainAmount"
 									value=<%=item.getRemainAmount()%> readonly></td>
-								<td><input type="text" name="startdate"
+								<td><input type="date" name="startdate"
 									value=<%=item.getStartdate()%> readonly></td>
-								<td><input type="text" name="enddate"
+								<td><input type="date" name="enddate"
 									value=<%=item.getEnddate()%> readonly></td>
 							</tr>
 							<%

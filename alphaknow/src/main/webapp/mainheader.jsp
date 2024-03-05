@@ -48,7 +48,7 @@
         </div>
         <div id="menu_board">
 
-            <div><a href="${pageContext.request.contextPath}/project_board.jsp">게시판</a></div>
+            <div><a href="${pageContext.request.contextPath}/select">게시판</a></div>
 
             <div id="moniter">
                 모니터링
