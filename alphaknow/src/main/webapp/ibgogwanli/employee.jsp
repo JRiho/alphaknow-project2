@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
-<%@ page import="classdirectory.byeol.dto.EmployeeDTO"%>
+<%@ page import="classDirectory.byeol.dto.EmployeeDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
