@@ -16,7 +16,7 @@ public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("project_login.jsp");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,13 +49,13 @@ public class LoginServlet extends HttpServlet {
                     } else {
                         // 로그인 실패: 로그인 페이지로 리디렉션
                         request.setAttribute("errorMessage", "아이디와 비밀번호가 일치하지 않습니다.");
-                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                        request.getRequestDispatcher("project_login.jsp").forward(request, response);
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("project_login.jsp");
         }
     }
 

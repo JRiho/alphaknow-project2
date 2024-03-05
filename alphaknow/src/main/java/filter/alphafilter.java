@@ -52,12 +52,12 @@ public class alphafilter extends HttpFilter implements Filter {
                 return; // 필터 체인의 나머지 부분 및 대상 리소스 실행 중지
             }
         }
-        if(uri.indexOf("project_login.jsp")!=-1) {
-        	chain.doFilter(req, res); // 요청 및 응답을 다음 필터나 대상 리소스로 전달
-        } else {
-        	
-        }
+//        if(uri.indexOf("project_login.jsp")!=-1) {
+//        } else {
+//        	
+//        }
 
+        chain.doFilter(req, res); // 요청 및 응답을 다음 필터나 대상 리소스로 전달
     }
 
     public void init(FilterConfig fConfig) throws ServletException {

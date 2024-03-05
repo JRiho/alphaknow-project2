@@ -79,11 +79,11 @@
         <div id="criteria">
             <div id="standard1"><a href="../process/process_code.jsp">공정코드관리</a></div>
             <div id="standard2"><a href="../process/process_produce.jsp">작업표준서</a></div>
-            <div id="standard3"><a href="../process/process_equipment.jsp">장비정보관리</a></div>
+            <div id="standard3"><a href="/alphaknow/equipment">장비정보관리</a></div>
             <div id="standard4"><a href="../process/process_part.jsp">부품정보관리</a></div>
         </div>
         <div id="planning">
-            <div id="planning1"><a href="/alphaknow/productionplan/production_plan_management.jsp">생산계획관리</a></div>
+            <div id="planning1"><a href="/alphaknow/ppms">생산계획관리</a></div>
             <div id="planning3"><a href="/alphaknow/productionplan/production_order_management.jsp">생산지시관리</a></div>
             <div id="planning2"><a href="/alphaknow/productionplan/process_order_plan.jsp">공정지시계획</a></div>
             <div id="planning4"><a href="/alphaknow/productionplan/process_order.jsp">공정지시관리</a></div>
@@ -108,9 +108,5 @@
             <div id="storing2"><a href="../ibgogwanli/item_registration.jsp">품목별단가조회 및 변경</a></div>
             <div id="storing3"><a href="../ibgogwanli/customerList.jsp">거래처 관리/등록</a></div>
         </div>
-<<<<<<< HEAD
-        
-       
-=======
->>>>>>> 1f0cb6e47c784fc07ffe231bb6affe9e725ff2f9
+
         
