@@ -114,48 +114,11 @@
 		    }
 		});
 
-		document.getElementById("employee_save").addEventListener("click", function() {
-		    let form = document.getElementById("employeeForm");
-		    // form 요소의 데이터를 이 객체에 추가
-		    let formData = new FormData(form);
-
-		    if (isEdit == true) {  // 편집 상태이면 update 로직을 실행
-		        formData.append("action", "update");  // action 필드의 값을 "update"로 설정
-		        isEdit = false;  // 편집 상태를 해제
-		    } else {
-		        // 기존의 insert 로직
-		        formData.append("action", "insert");  // action 필드의 값을 "insert"로 설정
-		    }
-
-		    // 서버에 POST 요청을 보냄
-		    fetch('/alphaknow/employee', {
-		        method: 'POST',
-		        body: formData
-		    })
-		    .then((response) => {
-		        if(response.ok) {
-		            return response.text();
-		        } else {
-		            throw new Error(`Server response: ${response.status}`);
-		        }
-		    })
-		    .then((data) => {
-		        // 요청이 성공하면 테이블을 업데이트하거나 다른 동작 수행
-		        console.log(data);
-		    })
-		    .catch((error) => {
-		        console.error('Error:', error);
-		    });
-		});
-		
-		
-		// 삭제
-		
+		//삭제하기
 		
 		});
 	
 		
-	
 	
 	
 	// content 관련 script
