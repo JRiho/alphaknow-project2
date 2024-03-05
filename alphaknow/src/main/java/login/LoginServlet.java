@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try (Connection conn = Login.getConnection()) {
-        	String sql = "SELECT USER_TYPE, USER_NAME FROM employee WHERE EMPLOYEE_ID=? AND EMPLOYEE_PW=?";
+        	String sql = "SELECT DEPARTMENT_CODE, EMPLOYEE_NAME FROM employee WHERE EMPLOYEE_KEY=? AND EMPLOYEE_PW=?";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setString(1, userId);
                 statement.setString(2, password);
@@ -34,8 +34,8 @@ public class LoginServlet extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.setMaxInactiveInterval(30 * 60); // 세션 유지 시간 30분 설정
 
-                        String userType = resultSet.getString("USER_TYPE"); // DB에서 사용자 유형 정보 가져오기
-                        String userName = resultSet.getString("USER_NAME");
+                        String userType = resultSet.getString("DEPARTMENT_CODE"); // DB에서 사용자 유형 정보 가져오기
+                        String userName = resultSet.getString("EMPLOYEE_NAME");
                         session.setAttribute("userType", userType);		
                         session.setAttribute("userName", userName);
                         
