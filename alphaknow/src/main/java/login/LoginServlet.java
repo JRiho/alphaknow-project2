@@ -16,7 +16,7 @@ public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("project_login.jsp");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try (Connection conn = Login.getConnection()) {
-        	String sql = "SELECT USER_TYPE, USER_NAME FROM employee WHERE EMPLOYEE_ID=? AND EMPLOYEE_PW=?";
+        	String sql = "SELECT DEPARTMENT_CODE, EMPLOYEE_NAME FROM employee WHERE EMPLOYEE_KEY=? AND EMPLOYEE_PW=?";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setString(1, userId);
                 statement.setString(2, password);
@@ -34,9 +34,9 @@ public class LoginServlet extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.setMaxInactiveInterval(30 * 60); // 세션 유지 시간 30분 설정
 
-                        String userType = resultSet.getString("USER_TYPE"); // DB에서 사용자 유형 정보 가져오기
-                        String userName = resultSet.getString("USER_NAME");
-                        session.setAttribute("userType", userType);
+                        String userType = resultSet.getString("DEPARTMENT_CODE"); // DB에서 사용자 유형 정보 가져오기
+                        String userName = resultSet.getString("EMPLOYEE_NAME");
+                        session.setAttribute("userType", userType);		
                         session.setAttribute("userName", userName);
                         
                         if ("admin".equals(userType)) {
@@ -49,13 +49,13 @@ public class LoginServlet extends HttpServlet {
                     } else {
                         // 로그인 실패: 로그인 페이지로 리디렉션
                         request.setAttribute("errorMessage", "아이디와 비밀번호가 일치하지 않습니다.");
-                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                        request.getRequestDispatcher("project_login.jsp").forward(request, response);
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("project_login.jsp");
         }
     }
 

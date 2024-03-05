@@ -1,4 +1,4 @@
-package classDirectory.byeol;
+package classdirectory.byeol;
 
 
 import java.io.IOException;

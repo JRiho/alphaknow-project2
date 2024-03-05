@@ -79,7 +79,7 @@
 									value=<%=item.getEnddate()%> readonly></td>
 							</tr>
 							<%
-								}
+							}
 							} catch (Exception e) {
 							e.printStackTrace();
 							}
@@ -118,9 +118,13 @@
 	</form>
 </body>
 
+<%
+String contextPath = request.getContextPath();
+%>
+
 <link rel="stylesheet"
-	href="http://127.0.0.1:8080/alphaknow/css/production_plan_management.css">
+	href="<%=contextPath%>/css/production_plan_management.css">
 <script
-	src="http://127.0.0.1:8080/alphaknow/js/production_plan_management.js"></script>
+	src="<%=contextPath%>/js/production_plan_management.js"></script>
 
 </html>

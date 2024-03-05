@@ -1,4 +1,4 @@
-package classDirectory.byeol.dao;
+package classdirectory.byeol.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import classDirectory.byeol.connection.JdbcConnectionUtil;
-import classDirectory.byeol.dto.EmployeeDTO;
+import classdirectory.byeol.connection.JdbcConnectionUtil;
+import classdirectory.byeol.dto.EmployeeDTO;
 
 public class EmployeeDAO {
 
