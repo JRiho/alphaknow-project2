@@ -38,7 +38,7 @@
             </ul>
         </div>
         <div id="menu_board">
-            <div><a href="../group/project_board.jsp">게시판</a></div>
+            <div><a href="project_board.jsp">게시판</a></div>
             <div id="moniter">
                 모니터링
             </div>
@@ -62,10 +62,10 @@
             </div>
         </div>
         <div id="monitering">
-            <div id="moniter1"><a href="../monitoring/monitoring_equipment.jsp">모니터링(장비)</a></div>
-            <div id="moniter2"><a href="../monitoring/project_operationRate.jsp">가동률현황</a></div>
-            <div id="moniter3"><a href="../monitoring/project_downtimeRate.jsp">비가동현황</a></div>
-            <div id="moniter4"><a href="../monitoring/monitoring_reflow.jsp">리플로우(온도)</a></div>
+            <div id="moniter1"><a href="monitoring/monitoring_equipment.jsp">모니터링(장비)</a></div>
+            <div id="moniter2"><a href="monitoring/project_operationRate.jsp">가동률현황</a></div>
+            <div id="moniter3"><a href="monitoring/project_downtimeRate.jsp">비가동현황</a></div>
+            <div id="moniter4"><a href="monitoring/monitoring_reflow.jsp">리플로우(온도)</a></div>
         </div>
         <div id="criteria">
             <div id="standard1"><a href="../process/process_code.jsp">공정코드관리</a></div>
@@ -99,9 +99,5 @@
             <div id="storing2"><a href="../ibgogwanli/item_registration.jsp">품목별단가조회 및 변경</a></div>
             <div id="storing3"><a href="../ibgogwanli/customerList.jsp">거래처 관리/등록</a></div>
         </div>
-<<<<<<< HEAD
-        
-       
-=======
->>>>>>> 1f0cb6e47c784fc07ffe231bb6affe9e725ff2f9
+
         

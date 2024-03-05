@@ -206,6 +206,42 @@
 					pop_main.style.display = "none";
 				});
 	});
+	
+	window.addEventListener('load', function() {
+        document.getElementById('selectAll').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = this.checked;
+            });
+        });
+
+        document.getElementById('deleteBtn').addEventListener('click', function() {
+            const selectedBoards = document.querySelectorAll('.checkbox:checked');
+            const selectedBoardIds = Array.from(selectedBoards).map(function(checkbox) {
+                return checkbox.value;
+            });
+
+            // 선택된 게시글의 ID를 DeleteBoardServlet으로 전달하여 삭제 요청을 보냄
+            fetch('/alphaknow/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'boardNum=' + selectedBoardIds.join('&boardNum=')
+            }).then(function(response) {
+                // 응답 처리
+                if (response.ok) {
+                    // 삭제가 성공적으로 이루어진 경우, 페이지 리로드
+                    window.location.reload();
+                } else {
+                    // 삭제가 실패한 경우, 사용자에게 알림을 보여줄 수 있음
+                    alert('게시글 삭제 실패');
+                }
+            }).catch(function(error) {
+                console.error('Error:', error);
+            });
+        });
+    });
 </script>
 
 <body>
@@ -238,7 +274,7 @@
 						<thead>
 							<tr height="40px" style="line-height:40px; margin-top:1%; border-top: 1px solid #999; 
 								border-bottom: 1px solid #999; background-color: #cecece; text-align: center;">
-								<td align="center" width="5%"><input type="checkbox">
+								<td align="center" width="5%"><input type="checkbox" id="selectAll">
 								</td>
 								<td width="10%">번호</td>
 								<td>제목</td>
@@ -253,9 +289,11 @@
 								for (BoardDTO board : boardList) {
 							%>
 							<tr>
-								<td align="center" width="5%"><input type="checkbox"></td>
+								<td align="center" width="5%">
+									<input type="checkbox" class="checkbox" name="selectedBoards" value="<%= board.getBoardNum() %>">
+								</td>
 								<td><%= board.getBoardNum() %></td>
-								<td><%= board.getBoardTitle() %></a></td>
+								<td><%= board.getBoardTitle() %></td>
 								<td><%= board.getEmployee_code() %></td>
 								<td><%= board.getBoardWriter() %></td>
 								<td>2024-03-06</td>
@@ -275,6 +313,8 @@
 							href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
 						<a class="next" href="#"></a> <a class="nnext" href="#"></a>
 					</div>
+					
+					<button type="button" id="deleteBtn">글 삭제</button>
 				</div>
 
 			</div>
