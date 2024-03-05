@@ -79,11 +79,6 @@
             <div id="moniter3"><a href="${pageContext.request.contextPath}/monitoring/project_downtimeRate.jsp">비가동현황</a></div>
             <div id="moniter4"><a href="${pageContext.request.contextPath}/monitoring/monitoring_reflow.jsp">리플로우(온도)</a></div>
 
-            <div id="moniter1"><a href="${pageContext.request.contextPath}/monitoring/monitoring_equipment.jsp">모니터링(장비)</a></div>
-            <div id="moniter2"><a href="${pageContext.request.contextPath}/monitoring/project_operationRate.jsp">가동률현황</a></div>
-            <div id="moniter3"><a href="${pageContext.request.contextPath}/monitoring/project_downtimeRate.jsp">비가동현황</a></div>
-            <div id="moniter4"><a href="${pageContext.request.contextPath}/monitoring/monitoring_reflow.jsp">리플로우(온도)</a></div>
-
         </div>
         <div id="criteria">
             <div id="standard1"><a href="${pageContext.request.contextPath}/process/process_code.jsp">공정코드관리</a></div>
