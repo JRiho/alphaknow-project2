@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*, java.util.ArrayList"%>
-<%@ page import="java.util.List" %>
-<%@ page import="board.BoardDTO" %>
+<%@ page import="java.util.List"%>
+<%@ page import="board.BoardDTO"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -132,7 +132,7 @@
 .page_wrap {
 	text-align: center;
 	font-size: 0;
-	margin-top: 45%;
+	margin-top: 40%;
 }
 
 .page_nation {
@@ -191,6 +191,24 @@
 	color: #fff;
 	border: 1px solid #1f48d4;
 }
+
+#deleteBtn {
+	position: absolute;
+	height: 30px;
+	top: 85%;
+	left: 90%;
+	background-color: #6495ED;
+	border: none;
+	color: #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	/* 배경 이미지 애니메이션*/
+	transition: background-color 0.3s ease;
+}
+
+#deleteBtn:hover {
+	background-color: #4169E1;
+}
 </style>
 
 <script>
@@ -206,42 +224,81 @@
 					pop_main.style.display = "none";
 				});
 	});
+		
+		window.addEventListener('load', function () {
+            document.querySelector('#selectAll').addEventListener('click', function () {
+               console.log("click")
+               let checkboxes = document.querySelectorAll(".checkbox");
+
+               if (document.querySelector('#selectAll').checked == true) {
+                  checkboxes.forEach(function (checkbox) {
+                     checkbox.checked = true;
+                  });
+               } else {
+                  checkboxes.forEach(function (checkbox) {
+                     checkbox.checked = false;
+                  });
+               }
+            });
+
+         });
+		
+		window.addEventListener('load', function() {
+		    document.getElementById('deleteBtn').addEventListener('click', function() {
+		        const checkboxes = document.querySelectorAll('.checkbox');
+		        const selectedBoards = [];
+		        checkboxes.forEach(function(checkbox) {
+		            if (checkbox.checked) {
+		                selectedBoards.push(checkbox.value);
+		            }
+		        });
+		        if (selectedBoards.length > 0) {
+		            const form = document.createElement('form');
+		            form.method = 'POST';
+		            form.action = '/alphaknow/delete';
+		            selectedBoards.forEach(function(boardId) {
+		                const input = document.createElement('input');
+		                input.type = 'hidden';
+		                input.name = 'selectedBoard';
+		                input.value = boardId;
+		                form.appendChild(input);
+		            });
+		            document.body.appendChild(form);
+		            form.submit();
+		        } else {
+		            alert('삭제할 게시글을 선택해주세요.');
+		        }
+		    });
+		});
+
+         //     document.getElementById('deleteBtn').addEventListener('click', function() {
+         //         const selectedBoards = document.querySelectorAll('.checkbox:checked');
+         //         const selectedBoardIds = Array.from(selectedBoards).map(function(checkbox) {
+         //             return checkbox.value;
+         //         });
+
+         //         // 선택된 게시글의 ID를 DeleteBoardServlet으로 전달하여 삭제 요청을 보냄
+         //         fetch('/alphaknow/delete', {
+         //             method: 'POST',
+         //             headers: {
+         //                 'Content-Type': 'application/x-www-form-urlencoded'
+         //             },
+         //             body: 'boardNum=' + selectedBoardIds.join('&boardNum=')
+         //         }).then(function(response) {
+         //             // 응답 처리
+         //             if (response.ok) {
+         //                 // 삭제가 성공적으로 이루어진 경우, 페이지 리로드
+         //                 window.location.reload();
+         //             } else {
+         //                 // 삭제가 실패한 경우, 사용자에게 알림을 보여줄 수 있음
+         //                 alert('게시글 삭제 실패');
+         //             }
+         //         }).catch(function(error) {
+         //             console.error('Error:', error);
+         //         });
+         //     });
+         // });
 	
-	window.addEventListener('load', function() {
-        document.getElementById('selectAll').addEventListener('click', function() {
-            const checkboxes = document.querySelectorAll('.checkbox');
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = this.checked;
-            });
-        });
-
-        document.getElementById('deleteBtn').addEventListener('click', function() {
-            const selectedBoards = document.querySelectorAll('.checkbox:checked');
-            const selectedBoardIds = Array.from(selectedBoards).map(function(checkbox) {
-                return checkbox.value;
-            });
-
-            // 선택된 게시글의 ID를 DeleteBoardServlet으로 전달하여 삭제 요청을 보냄
-            fetch('/alphaknow/delete', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'boardNum=' + selectedBoardIds.join('&boardNum=')
-            }).then(function(response) {
-                // 응답 처리
-                if (response.ok) {
-                    // 삭제가 성공적으로 이루어진 경우, 페이지 리로드
-                    window.location.reload();
-                } else {
-                    // 삭제가 실패한 경우, 사용자에게 알림을 보여줄 수 있음
-                    alert('게시글 삭제 실패');
-                }
-            }).catch(function(error) {
-                console.error('Error:', error);
-            });
-        });
-    });
 </script>
 
 <body>
@@ -272,10 +329,10 @@
 				<div>
 					<table id="boardList">
 						<thead>
-							<tr height="40px" style="line-height:40px; margin-top:1%; border-top: 1px solid #999; 
-								border-bottom: 1px solid #999; background-color: #cecece; text-align: center;">
-								<td align="center" width="5%"><input type="checkbox" id="selectAll">
-								</td>
+							<tr height="40px"
+								style="line-height: 40px; margin-top: 1%; border-top: 1px solid #999; border-bottom: 1px solid #999; background-color: #cecece; text-align: center;">
+								<td align="center" width="5%"><input type="checkbox"
+									id="selectAll"></td>
 								<td width="10%">번호</td>
 								<td>제목</td>
 								<td width="10%">사원코드</td>
@@ -289,15 +346,15 @@
 								for (BoardDTO board : boardList) {
 							%>
 							<tr>
-								<td align="center" width="5%">
-									<input type="checkbox" class="checkbox" name="selectedBoards" value="<%= board.getBoardNum() %>">
-								</td>
-								<td><%= board.getBoardNum() %></td>
-								<td><%= board.getBoardTitle() %></td>
-								<td><%= board.getEmployee_code() %></td>
-								<td><%= board.getBoardWriter() %></td>
+								<td align="center" width="5%"><input type="checkbox"
+									class="checkbox" name="selectedBoards"
+									value="<%=board.getBoardNum()%>"></td>
+								<td><%=board.getBoardNum()%></td>
+								<td><%=board.getBoardTitle()%></td>
+								<td><%=board.getEmployee_code()%></td>
+								<td><%=board.getBoardWriter()%></td>
 								<td>2024-03-06</td>
-								<td><%= board.getBoardViews() %></td>
+								<td><%=board.getBoardViews()%></td>
 							</tr>
 							<%
 							}
@@ -313,7 +370,7 @@
 							href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
 						<a class="next" href="#"></a> <a class="nnext" href="#"></a>
 					</div>
-					
+
 					<button type="button" id="deleteBtn">글 삭제</button>
 				</div>
 
@@ -378,6 +435,9 @@
 
 		</div>
 	</form>
+
+
+
 </body>
 
 </html>
