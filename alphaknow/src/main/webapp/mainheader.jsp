@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MainPage</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <script src="../js/script.js"></script>
+    <link rel="stylesheet" href="http://127.0.0.1:8080/alphaknow/css/styles.css">
+    <script src="http://127.0.0.1:8080/alphaknow/js/script.js"></script>
 </head>
 <style>
 
@@ -100,5 +100,5 @@
             <div id="storing3"><a href="../ibgogwanli/customerList.jsp">거래처 관리/등록</a></div>
         </div>
         
-       </div>
+       
         
