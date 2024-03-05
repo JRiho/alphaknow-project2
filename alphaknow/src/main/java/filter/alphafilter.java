@@ -38,6 +38,7 @@ public class alphafilter extends HttpFilter implements Filter {
         } else if (uri.endsWith(".js")) {
             res.setContentType("application/javascript; charset=UTF-8");
         }
+        request.setCharacterEncoding("UTF-8"); // 모든 요청에 대해 UTF-8 인코딩 적용
 
         // 로그인 및 권한 검사
         if (uri.startsWith("/protected/") || uri.startsWith("/admin/")) {
@@ -51,9 +52,12 @@ public class alphafilter extends HttpFilter implements Filter {
                 return; // 필터 체인의 나머지 부분 및 대상 리소스 실행 중지
             }
         }
+        if(uri.indexOf("project_login.jsp")!=-1) {
+        	chain.doFilter(req, res); // 요청 및 응답을 다음 필터나 대상 리소스로 전달
+        } else {
+        	
+        }
 
-        request.setCharacterEncoding("UTF-8"); // 모든 요청에 대해 UTF-8 인코딩 적용
-        chain.doFilter(req, res); // 요청 및 응답을 다음 필터나 대상 리소스로 전달
     }
 
     public void init(FilterConfig fConfig) throws ServletException {

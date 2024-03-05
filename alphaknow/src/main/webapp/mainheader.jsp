@@ -32,8 +32,17 @@
                         </div>
                     </div>
                 </li>
-                <li id="li_user_icon">
-                    <img src="img/images.png" id="user_icon">
+                <li id="li_user_name">
+                   <% 
+                    // 세션에서 사용자 이름 가져오기
+                    String userName = (String)session.getAttribute("userName");
+                    if(userName != null) {
+                        out.print(userName); // 사용자 이름 출력
+                    } else {
+                        out.print("게스트"); // 세션이 없는 경우 게스트로 표시
+                    }
+                    %>
+                    (<a href="logout.jsp">로그아웃</a>) <!-- 로그아웃 링크 -->
                 </li>
             </ul>
         </div>

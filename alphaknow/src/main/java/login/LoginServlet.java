@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 
                         String userType = resultSet.getString("USER_TYPE"); // DB에서 사용자 유형 정보 가져오기
                         String userName = resultSet.getString("USER_NAME");
-                        session.setAttribute("userType", userType);
+                        session.setAttribute("userType", userType);		
                         session.setAttribute("userName", userName);
                         
                         if ("admin".equals(userType)) {
