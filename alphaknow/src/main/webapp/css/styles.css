@@ -143,6 +143,12 @@ body {
 	margin-left: 70%;
 }
 
+#li_user_name {
+	margin-left: 162px;
+	margin-top: 18px;
+	font-size: 1.1em;
+}
+
 /* 메뉴보드 */
 #menu_board {
 	width: 100%;
