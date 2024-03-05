@@ -8,10 +8,22 @@
 <title>로그인 페이지</title>
 <link rel="stylesheet" href="css/login.css">
 <script src="js/loginScript.js"></script>
+<script>
+    window.onload = function() {
+        // 서버로부터 받은 오류 메시지를 가져옵니다.
+        var errorMessage = "<%=request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "" %>";
+        if (errorMessage !== "") {
+            // 오류 메시지가 있으면 표시합니다.
+            var errorDiv = document.getElementById('login_error');
+            errorDiv.textContent = errorMessage;
+            errorDiv.style.display = 'block';
+        }
+    }
+</script>
 </head>
 
 <body>
-	<form action="mainPage.jsp" method="post">
+	<form action="login" method="post">
 		<div id="mainbox">
 			<div class="screen">
 				<!-- 로그인 타입 선택; id/qr -->
@@ -26,16 +38,19 @@
 					<div class="login">
 						<div>
 							<div class="id_container">
-								<img src="img/id_icon.png" ondragstart="return false;"> <input
-									type="text" name="userid" placeholder="사원아이디" id="id">
+								<img src="${pageContext.request.contextPath}/img/id_icon.png" ondragstart="return false;"> <input
+									type="text" name="userId" placeholder="사원아이디" id="id">
 							</div>
 							<!-- 로그인 버튼 -->
 							<input type="submit" id="login" class="login_but" value="로그인"
 								onclick="login()" tabindex="-1">
 						</div>
 						<div class="pass_container">
-							<img src="img/pass_icon.png" ondragstart="return false;"> <input
-								type="password" name="userpass" placeholder="비밀번호" id="pass">
+							<img src="${pageContext.request.contextPath}/img/pass_icon.png" ondragstart="return false;"> <input
+								type="password" name="password" placeholder="비밀번호" id="pass">
+						</div>
+						<div id="login_error" style="color: red; display: none;">
+							<!-- 오류 메시지는 여기에 표시됩니다 -->
 						</div>
 					</div>
 
@@ -53,7 +68,7 @@
 				</div>
 
 				<div id="qr_login">
-					<img src="img/qrcode.png">
+					<img src="${pageContext.request.contextPath}/img/qrcode.png">
 					<p>QR코드를 스캔해주세요.</p>
 				</div>
 

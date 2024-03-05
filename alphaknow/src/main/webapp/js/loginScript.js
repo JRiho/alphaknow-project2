@@ -73,3 +73,4 @@ function login() {
 function openPopup() {
     window.open('project_findPass.jsp', '비밀번호 찾기', 'width=850, height=400');
 }
+
