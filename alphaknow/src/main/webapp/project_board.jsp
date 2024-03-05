@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
-
+<%@ page import="java.sql.*, java.util.ArrayList"%>
+<%@ page import="java.util.List" %>
+<%@ page import="board.BoardDTO" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +11,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link rel="stylesheet" href="../css/boardWrite.css">
-<link rel="stylesheet" href="../css/styles.css">
-<script src="../js/script.js"></script>
+<link rel="stylesheet" href="css/boardWrite.css">
+<script src="js/script.js"></script>
 </head>
 
 <style>
@@ -122,12 +121,11 @@
 
 #boardList {
 	width: 100%;
-	height: 40px;
-	line-height: 40px;
+	height: 30px;
+	line-height: 30px;
 	margin-top: 1%;
 	border-top: 1px solid #999;
 	border-bottom: 1px solid #999;
-	background-color: #cecece;
 	text-align: center;
 }
 
@@ -169,22 +167,22 @@
 }
 
 .page_nation .pprev {
-	background: #f8f8f8 url('../img/page_pprev.png') no-repeat center center;
+	background: #f8f8f8 url('img/page_pprev.png') no-repeat center center;
 	margin-left: 0;
 }
 
 .page_nation .prev {
-	background: #f8f8f8 url('../img/page_prev.png') no-repeat center center;
+	background: #f8f8f8 url('img/page_prev.png') no-repeat center center;
 	margin-right: 7px;
 }
 
 .page_nation .next {
-	background: #f8f8f8 url('../img/page_next.png') no-repeat center center;
+	background: #f8f8f8 url('img/page_next.png') no-repeat center center;
 	margin-left: 7px;
 }
 
 .page_nation .nnext {
-	background: #f8f8f8 url('../img/page_nnext.png') no-repeat center center;
+	background: #f8f8f8 url('img/page_nnext.png') no-repeat center center;
 	margin-right: 0;
 }
 
@@ -211,66 +209,77 @@
 </script>
 
 <body>
+	<form action="/alphaknow/board" method="post">
 
-	<%@ include file="../mainheader.jsp"%>
+		<%@ include file="../mainheader.jsp"%>
 
-	<div id="boardContent">
 
-		<div class="main">
+		<div id="boardContent">
 
-			<div id="boardWrite">
-				<button type="button" id="boardWrite_btn">
-					<img src="../img/boardWrite_icon.png">
-				</button>
-				<label for="boardWrite_btn"><span>새글쓰기</span></label>
-			</div>
+			<div class="main">
 
-			<div class="boardSearch">
-				<select id="searchOption">
-					<option value="title">제목</option>
-					<option value="title">작성자</option>
-				</select> <input type="text" id="searchText">
-				<button id="searchBtn">검색</button>
-			</div>
-
-			<div>
-				<table id="boardList">
-					<thead>
-						<tr>
-							<td align="center" width="5%"><input type="checkbox">
-							</td>
-							<td width="10%">번호</td>
-							<td>제목</td>
-							<td width="10%">사원코드</td>
-							<td width="10%">작성자</td>
-							<td width="20%">작성일</td>
-							<td width="10%">조회</td>
-						</tr>
-					</thead>
-					<c:forEach items="${list }" var="board">
-						<tr>
-							<td>${board.boardNum }</td>
-							<td><a href="boardDetail.do?boardNum=${board.boardNum }">${board.boardTitle }</a></td>
-							<td>${board.employee_code }</td>
-							<td>${board.boardWriter }</td>
-							<td>${board.boardDate }</td>
-							<td>${board.boardViews }</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-
-			<div class="page_wrap">
-				<div class="page_nation">
-					<a class="pprev" href="#"></a> <a class="prev" href="#"></a> <a
-						href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
-					<a class="next" href="#"></a> <a class="nnext" href="#"></a>
+				<div id="boardWrite">
+					<button type="button" id="boardWrite_btn">
+						<img src="img/boardWrite_icon.png">
+					</button>
+					<label for="boardWrite_btn"><span>새글쓰기</span></label>
 				</div>
+
+				<div class="boardSearch">
+					<select id="searchOption">
+						<option value="title">제목</option>
+						<option value="title">작성자</option>
+					</select> <input type="text" id="searchText">
+					<button id="searchBtn">검색</button>
+				</div>
+
+				<div>
+					<table id="boardList">
+						<thead>
+							<tr height="40px" style="line-height:40px; margin-top:1%; border-top: 1px solid #999; 
+								border-bottom: 1px solid #999; background-color: #cecece; text-align: center;">
+								<td align="center" width="5%"><input type="checkbox">
+								</td>
+								<td width="10%">번호</td>
+								<td>제목</td>
+								<td width="10%">사원코드</td>
+								<td width="10%">작성자</td>
+								<td width="20%">작성일</td>
+								<td width="10%">조회</td>
+							</tr>
+							<%
+							List<BoardDTO> boardList = (List<BoardDTO>) request.getAttribute("boardList");
+							if (boardList != null) {
+								for (BoardDTO board : boardList) {
+							%>
+							<tr>
+								<td align="center" width="5%"><input type="checkbox"></td>
+								<td><%= board.getBoardNum() %></td>
+								<td><%= board.getBoardTitle() %></a></td>
+								<td><%= board.getEmployee_code() %></td>
+								<td><%= board.getBoardWriter() %></td>
+								<td>2024-03-06</td>
+								<td><%= board.getBoardViews() %></td>
+							</tr>
+							<%
+							}
+							}
+							%>
+						
+					</table>
+				</div>
+
+				<div class="page_wrap">
+					<div class="page_nation">
+						<a class="pprev" href="#"></a> <a class="prev" href="#"></a> <a
+							href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
+						<a class="next" href="#"></a> <a class="nnext" href="#"></a>
+					</div>
+				</div>
+
 			</div>
 
-		</div>
 
-		<form action="../regBoard.do" method="post">
 			<div id="pop_main">
 
 				<div id="pop_header">
@@ -286,7 +295,7 @@
 								<div class="title">제목</div>
 								<div class="form">
 									<div class="control_set">
-										<input type="text">
+										<input type="text" name="boardTitle">
 									</div>
 								</div>
 							</li>
@@ -294,7 +303,7 @@
 								<div class="title">작성자</div>
 								<div class="form">
 									<div class="control_set">
-										<input type="text">
+										<input type="text" name="boardWriter">
 									</div>
 								</div>
 							</li>
@@ -302,7 +311,7 @@
 								<div class="title">사원코드</div>
 								<div class="form">
 									<div class="control_set">
-										<input type="text">
+										<input type="text" name="employee_code">
 									</div>
 								</div>
 							</li>
@@ -310,7 +319,7 @@
 								<div class="title">내용</div>
 								<div class="form">
 									<div class="control_set">
-										<textarea></textarea>
+										<textarea name="boardContent"></textarea>
 									</div>
 								</div>
 							</li>
@@ -321,13 +330,14 @@
 				<div id="btns">
 					<button type="submit" id="save">저장</button>
 					<button type="reset" id="reset">다시쓰기</button>
-					<button id="close">닫기</button>
+					<button type="button" id="close">닫기</button>
 				</div>
 
 			</div>
-		</form>
 
-	</div>
+
+		</div>
+	</form>
 </body>
 
 </html>
