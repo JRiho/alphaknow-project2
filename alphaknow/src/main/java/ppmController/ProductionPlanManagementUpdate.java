@@ -123,7 +123,7 @@ public class ProductionPlanManagementUpdate extends HttpServlet {
 
 		try {
 //			request.getRequestDispatcher("/ppms").forward(request, response);
-			response.sendRedirect("http://127.0.0.1:8080/alphaknow/ppms");
+			response.sendRedirect("/alphaknow/ppms");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
