@@ -46,7 +46,7 @@
 
                                     series.addPoint([second, temp], true, false);
                                     second++;
-                                }, 1000); // 1초마다 업데이트
+                                }, 3000); // 3초마다 업데이트
                             }
                         }
                     },

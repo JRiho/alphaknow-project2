@@ -1,4 +1,4 @@
-#operation_content {
+#content {
     background-color: white;
     width: 95%;
     height: auto;
@@ -71,7 +71,7 @@
 #rateTable_day {
     position: relative;
     width: 95%;
-    max-height: 592px;
+    max-height: 5;
     overflow-y: auto;
     border-top: 1px solid;
     border-right: 1px solid;

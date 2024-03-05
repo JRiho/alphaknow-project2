@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MainPage</title>
     <link rel="stylesheet" href="../css/downtimeRate.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/script.js"></script>
     <script src="../js/downtimeRate.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>

@@ -42,12 +42,13 @@ body {
 
   #main_content {
     width: 100%;
-    background-color: #e9e3e3;
+    background-color: #fff;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;	
   }
 
+  
   button {
     padding: 10px 20px;
     background-color: #ffffff;
@@ -76,8 +77,14 @@ body {
     transition: background-color 0.3s ease;
     /* 배경색 변경 애니메이션 */
   }
-
+	
   .change_button:hover {
     background-color: #4169E1;
     /* 마우스 오버 시 배경색 진한 파란색으로 변경 */
   }
+  
+  .delete_button_container {
+    text-align: right; /* 오른쪽 정렬 */
+    width: 100%; /* 부모 요소의 전체 너비를 차지하도록 설정 */
+    padding: 10px 0; /* 상단과 하단에 여백 추가 */
+}

@@ -49,7 +49,7 @@
             let li = document.createElement('li');
             let a = document.createElement('a');
             a.href = item[2]; // 이동할 페이지의 URL
-            a.innerHTML = `<img src="${item[0]}"><br><span>${item[1]}</span>`;
+            a.innerHTML = `<img src="\${item[0]}"><br><span>\${item[1]}</span>`;
             li.appendChild(a);
             list.appendChild(li);
         });

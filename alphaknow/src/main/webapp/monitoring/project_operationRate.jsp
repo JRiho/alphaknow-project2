@@ -19,7 +19,7 @@
 
 	<%@ include file="../mainheader.jsp"%>
 
-	<div id="operation_content">
+	<div id="content">
 		<div id="rate_option">
 			<button type="button" id="option_btn1">일간별 가동률현황</button>
 			<button type="button" id="option_btn2">주간별 가동률현황</button>

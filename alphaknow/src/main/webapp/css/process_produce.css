@@ -12,7 +12,7 @@ a {
     margin: 0 auto;
 }
 
-#eq_list list {
+#eq_list {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
@@ -21,17 +21,14 @@ a {
     /* 항목들이 왼쪽에서 시작하도록 정렬 */
 }
 
-#eq_list list li {
-
+#eq_list li {
     list-style: none;
     flex: 1 1 22%;
-    /* flex-basis를 22%로 설정하여 한 줄에 최대 4개의 항목이 오도록 설정 */
     margin: 0 10px;
-    /* 항목 사이의 간격 유지 */
     box-sizing: border-box;
-    /* padding과 border가 너비에 포함되도록 설정 */
     text-align: center;
 }
+
 
 #eq_list li span {
     display: inline-block;
