@@ -71,7 +71,7 @@
 #rateTable_day {
     position: relative;
     width: 95%;
-    max-height: 5;
+    height: 66vh;
     overflow-y: auto;
     border-top: 1px solid;
     border-right: 1px solid;
@@ -100,7 +100,7 @@ td {
 #rateChart_week {
     display: none;
     width: 100%;
-    max-height: 592px;
+    height: 64.5vh;
     overflow-y: auto;
     box-sizing: border-box;
     margin: 2.7% auto;
