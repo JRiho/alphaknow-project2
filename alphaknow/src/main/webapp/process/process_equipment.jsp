@@ -16,8 +16,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet"
-	href="http://127.0.0.1:8080/alphaknow/css/process_equipment.css">
-<script src="http://127.0.0.1:8080/alphaknow/js/equipment.js"></script>
+	href="${pageContext.request.contextPath}/css/process_equipment.css">
+<script src="${pageContext.request.contextPath}/js/equipment.js"></script>
 <script>
 	document
 			.addEventListener(

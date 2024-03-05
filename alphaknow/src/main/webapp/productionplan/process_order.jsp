@@ -1,74 +1,76 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>공정지시관리</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공정지시관리</title>
 
-    </head>
+</head>
 
-    <body>
-    
-        <%@ include file="../mainheader.jsp" %>
-        
-            <!-- content -->
-            <div id="content">
+<body>
 
-                <!-- div id="headerj" 시작 -->
-                <div id="headerj">
-                    공정지시관리
-                </div>
-                <!-- div id="headerj" 끝 -->
+	<%@ include file="../mainheader.jsp"%>
 
-                <!-- updiv -->
-                <div class="updiv">
-                    <!-- order_menu -->
-                    <div id="order_menu">
+	<!-- content -->
+	<div id="content">
 
-                    </div>
-                    <!-- order_menu 끝 -->
-                </div>
-                <!-- updiv 끝 -->
+		<!-- div id="headerj" 시작 -->
+		<div id="headerj">공정지시관리</div>
+		<!-- div id="headerj" 끝 -->
 
-                <!-- downdiv -->
-                <div class="downdiv">
+		<!-- updiv -->
+		<div class="updiv">
+			<!-- order_menu -->
+			<div id="order_menu"></div>
+			<!-- order_menu 끝 -->
+		</div>
+		<!-- updiv 끝 -->
 
-                    <!-- header1 div -->
-                    <div id="header1_div">
-                        <!-- 버튼 div -->
-                        <div id="btn_wrap_div">
+		<!-- downdiv -->
+		<div class="downdiv">
 
-                            <button type="button" id="btn_add">추가</button>
-                            <button type="button" id="btn_modify">수정</button>
-                            <button type="button" id="btn_delete">삭제</button>
-                            <button type="button" id="btn_save">저장</button>
-                        </div>
-                    </div>
-                    <!-- header1 div 끝 -->
+			<!-- header1 div -->
+			<div id="header1_div">
+				<!-- 버튼 div -->
+				<div id="btn_wrap_div">
 
-                    <div id="order_table_div">
-                        <table id="order_table">
-                            <thead id="order_table_thead">
+					<button type="button" id="btn_add">추가</button>
+					<button type="button" id="btn_modify">수정</button>
+					<button type="button" id="btn_delete">삭제</button>
+					<button type="button" id="btn_save">저장</button>
+				</div>
+			</div>
+			<!-- header1 div 끝 -->
 
-                            </thead>
-                            <tbody id="order_table_tbody">
+			<div id="order_table_div">
+				<table id="order_table">
+					<thead id="order_table_thead">
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- downdiv 끝 -->
-            </div>
+					</thead>
+					<tbody id="order_table_tbody">
 
-            <script>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- downdiv 끝 -->
+	</div>
 
-            </script>
-    </body>
+	<script>
+		
+	</script>
+</body>
 
-    <link rel="stylesheet" href="../css/process_order.css">
-    <script src="../js/process_order.js"></script>
+<%
+String contextPath = request.getContextPath();
+%>
 
-    </html>
+<link rel="stylesheet"
+	href="<%=contextPath%>/css/process_order.css">
+<script src="<%=contextPath%>/js/process_order.js"></script>
+
+</html>
