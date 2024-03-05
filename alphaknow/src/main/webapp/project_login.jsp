@@ -11,7 +11,7 @@
 </head>
 
 <body>
-	<form action="maingPage.jsp" method="post">
+	<form action="mainPage.jsp" method="post">
 		<div id="mainbox">
 			<div class="screen">
 				<!-- 로그인 타입 선택; id/qr -->
