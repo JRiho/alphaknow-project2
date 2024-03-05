@@ -23,7 +23,11 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 	<form action="login" method="post">
+=======
+	<form action="mainPage.jsp" method="post">
+>>>>>>> 62f006851ba3db248fba473fb11ba7f2af336b93
 		<div id="mainbox">
 			<div class="screen">
 				<!-- 로그인 타입 선택; id/qr -->
