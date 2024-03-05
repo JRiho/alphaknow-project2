@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import classDirectory.byeol.dao.EmployeeDAO;
-import classDirectory.byeol.dto.EmployeeDTO;
+import classdirectory.byeol.dao.EmployeeDAO;
+import classdirectory.byeol.dto.EmployeeDTO;
 
 @WebServlet("/employee")
 public class EmployeeServlet extends HttpServlet {

@@ -37,7 +37,14 @@ public class alphafilter extends HttpFilter implements Filter {
             res.setContentType("text/css; charset=UTF-8");
         } else if (uri.endsWith(".js")) {
             res.setContentType("application/javascript; charset=UTF-8");
+        } else if (uri.endsWith(".png")) {
+            res.setContentType("image/png");
+        } else if (uri.endsWith(".jpg") || uri.endsWith(".jpeg")) {
+            res.setContentType("image/jpeg");
+        } else if (uri.endsWith(".webp")) {
+            res.setContentType("image/webp");
         }
+
         request.setCharacterEncoding("UTF-8"); // 모든 요청에 대해 UTF-8 인코딩 적용
         
         if (uri.indexOf("project_login.jsp") != -1 || uri.indexOf("/login") != -1|| uri.endsWith(".css") || uri.endsWith(".js")) {

@@ -9,8 +9,8 @@
 <title>Employee</title>
 <!-- 은별 공통 css. JS -->
 <link rel="stylesheet"
-	href="http://127.0.0.1:8080/alphaknow/css/eunbyeol_header,main.css">
-<script src="http://127.0.0.1:8080/alphaknow/js/eunbyeol.js"></script>
+	href="${pageContext.request.contextPath}/css/eunbyeol_header,main.css">
+<script src="${pageContext.request.contextPath}/js/eunbyeol.js"></script>
 
 
 <style>
