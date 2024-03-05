@@ -47,11 +47,9 @@
             </ul>
         </div>
         <div id="menu_board">
-<<<<<<< HEAD
-            <div><a href="project_board.jsp">게시판</a></div>
-=======
-            <div><a href="${pageContext.request.contextPath}/group/project_board.jsp">게시판</a></div>
->>>>>>> 81cd8e39d57a3babacf76e9836ccf8f0b40e44ba
+
+            <div><a href="${pageContext.request.contextPath}/project_board.jsp">게시판</a></div>
+
             <div id="moniter">
                 모니터링
             </div>
@@ -75,17 +73,17 @@
             </div>
         </div>
         <div id="monitering">
-<<<<<<< HEAD
-            <div id="moniter1"><a href="monitoring/monitoring_equipment.jsp">모니터링(장비)</a></div>
-            <div id="moniter2"><a href="monitoring/project_operationRate.jsp">가동률현황</a></div>
-            <div id="moniter3"><a href="monitoring/project_downtimeRate.jsp">비가동현황</a></div>
-            <div id="moniter4"><a href="monitoring/monitoring_reflow.jsp">리플로우(온도)</a></div>
-=======
+
             <div id="moniter1"><a href="${pageContext.request.contextPath}/monitoring/monitoring_equipment.jsp">모니터링(장비)</a></div>
             <div id="moniter2"><a href="${pageContext.request.contextPath}/monitoring/project_operationRate.jsp">가동률현황</a></div>
             <div id="moniter3"><a href="${pageContext.request.contextPath}/monitoring/project_downtimeRate.jsp">비가동현황</a></div>
             <div id="moniter4"><a href="${pageContext.request.contextPath}/monitoring/monitoring_reflow.jsp">리플로우(온도)</a></div>
->>>>>>> 81cd8e39d57a3babacf76e9836ccf8f0b40e44ba
+
+            <div id="moniter1"><a href="${pageContext.request.contextPath}/monitoring/monitoring_equipment.jsp">모니터링(장비)</a></div>
+            <div id="moniter2"><a href="${pageContext.request.contextPath}/monitoring/project_operationRate.jsp">가동률현황</a></div>
+            <div id="moniter3"><a href="${pageContext.request.contextPath}/monitoring/project_downtimeRate.jsp">비가동현황</a></div>
+            <div id="moniter4"><a href="${pageContext.request.contextPath}/monitoring/monitoring_reflow.jsp">리플로우(온도)</a></div>
+
         </div>
         <div id="criteria">
             <div id="standard1"><a href="${pageContext.request.contextPath}/process/process_code.jsp">공정코드관리</a></div>
