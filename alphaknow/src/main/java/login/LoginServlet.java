@@ -29,23 +29,25 @@ public class LoginServlet extends HttpServlet {
                 statement.setString(1, userId);
                 statement.setString(2, password);
                 try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        // 로그인 성공: 세션에 사용자 유형 저장
+                	if (resultSet.next()) {
                         HttpSession session = request.getSession();
                         session.setMaxInactiveInterval(30 * 60); // 세션 유지 시간 30분 설정
 
-                        String userType = resultSet.getString("DEPARTMENT_CODE"); // DB에서 사용자 유형 정보 가져오기
+                        int departmentCode = resultSet.getInt("DEPARTMENT_CODE");
                         String userName = resultSet.getString("EMPLOYEE_NAME");
-                        session.setAttribute("userType", userType);		
-                        session.setAttribute("userName", userName);
                         
-                        if ("admin".equals(userType)) {
-                            // 관리자 페이지로 리디렉션
-                            response.sendRedirect("adminPage.jsp");
+                        // userType이 "1"인 경우 "admin", 그 외는 "user"로 세션에 저장
+                        if ("1".equals(String.valueOf(departmentCode))) {
+                            session.setAttribute("userType", "admin");
                         } else {
-                            // 일반 사용자 홈페이지로 리디렉션
-                            response.sendRedirect("mainPage.jsp");
+                            session.setAttribute("userType", "user");
                         }
+                        
+                        session.setAttribute("userName", userName);
+
+                        response.sendRedirect("mainPage.jsp");
+                        
+                        System.out.println("userName"+ userName+"userType");
                     } else {
                         // 로그인 실패: 로그인 페이지로 리디렉션
                         request.setAttribute("errorMessage", "아이디와 비밀번호가 일치하지 않습니다.");

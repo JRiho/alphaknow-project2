@@ -7,8 +7,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공정코드관리</title>
-  <link rel="stylesheet" href="../css/process_code.css">
-  <script src="http://127.0.0.1:8080/alphaknow/js/process_code.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/process_code.css">
+  <script src="${pageContext.request.contextPath}/js/process_code.js"></script>
 </head>
 
 <body>

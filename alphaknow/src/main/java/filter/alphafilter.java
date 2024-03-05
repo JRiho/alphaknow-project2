@@ -39,28 +39,24 @@ public class alphafilter extends HttpFilter implements Filter {
             res.setContentType("application/javascript; charset=UTF-8");
         }
         request.setCharacterEncoding("UTF-8"); // 모든 요청에 대해 UTF-8 인코딩 적용
-
-        // 로그인 및 권한 검사
-        if (uri.startsWith("/protected/") || uri.startsWith("/admin/")) {
+        
+        if (uri.indexOf("project_login.jsp") != -1 || uri.indexOf("/login") != -1|| uri.endsWith(".css") || uri.endsWith(".js")) {
+            chain.doFilter(req, res); // 요청을 다음 필터나 대상 리소스로 전달
+        } else {
+            // 로그인 여부 확인
             if (session == null || session.getAttribute("userType") == null) {
-                // 로그인하지 않은 경우 로그인 페이지로 리디렉션
                 res.sendRedirect(req.getContextPath() + "/project_login.jsp");
-                return; // 필터 체인의 나머지 부분 및 대상 리소스 실행 중지
-            } else if (uri.startsWith("/admin/") && !"admin".equals(session.getAttribute("userType"))) {
-                // 관리자 페이지에 접근하려는데 사용자가 관리자가 아닌 경우
-                res.sendRedirect(req.getContextPath() + "/accessDenied.jsp");
-                return; // 필터 체인의 나머지 부분 및 대상 리소스 실행 중지
+            } else {
+                // 권한에 따른 접근 제어
+            	if ((uri.indexOf("/alphaknow/process/") != -1 || uri.indexOf("/equipment") != -1) && !"admin".equals(session.getAttribute("userType"))) {
+            	    res.sendRedirect(req.getContextPath() + "/accessDenied.jsp");
+            	} else {
+            	    chain.doFilter(req, res); // 요청을 다음 필터나 대상 리소스로 전달
+            	}
             }
-        }
-//        if(uri.indexOf("project_login.jsp")!=-1) {
-//        } else {
-//        	
-//        }
-
-        chain.doFilter(req, res); // 요청 및 응답을 다음 필터나 대상 리소스로 전달
-    }
-
-    public void init(FilterConfig fConfig) throws ServletException {
-        // 필터 초기화 로직 (필요한 경우)
-    }
+        }   
+    } 
 }
+    
+
+
