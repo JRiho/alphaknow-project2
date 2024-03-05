@@ -121,9 +121,11 @@ public class ProductionPlanManagementSelect extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("list", list);
+		System.out.println(request.getRemoteAddr());
+		System.out.println(request.getContextPath());
 
 		try {
-			request.getRequestDispatcher("/productionplan/production_plan_management.jsp").forward(request, response);
+			request.getRequestDispatcher("productionplan/production_plan_management.jsp").forward(request, response);
 //			response.sendRedirect(request.getContextPath() + "/productionplan/production_plan_management.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
