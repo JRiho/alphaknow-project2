@@ -143,7 +143,7 @@ window.addEventListener("load", function() {
 	document.querySelector("#btn_auto").addEventListener("click", function() {
 		function moveLocation() {
 			hideAlarm();
-			window.location.href = "http://127.0.0.1:8080/alphaknow/ppms"
+			window.location.href = "../alphaknow/ppms"
 			btnOk.removeEventListener("click", moveLocation)
 		}
 		showAlarm("계획을 불러오시겠습니까?");
@@ -175,7 +175,7 @@ window.addEventListener("load", function() {
 				checkbox.checked = false;
 			});
 
-			document.getElementById('myForm').action = "http://127.0.0.1:8080/alphaknow/ppmi"
+			document.getElementById('myForm').action = "../alphaknow/ppmi"
 			btnOk.type = "submit";
 
 			document.querySelector("#btn_auto").style.cssText = "display: inline-block;"
@@ -244,7 +244,7 @@ window.addEventListener("load", function() {
 				});
 			});
 
-			document.getElementById('myForm').action = "http://127.0.0.1:8080/alphaknow/ppmu"
+			document.getElementById('myForm').action = "../alphaknow/ppmu"
 			btnOk.type = "submit";
 
 			document.querySelector("#btn_auto").style.cssText = "display: inline-block;"
@@ -262,7 +262,7 @@ window.addEventListener("load", function() {
 		function delRow() {
 			hideAlarm();
 
-			document.getElementById('myForm').action = "http://127.0.0.1:8080/alphaknow/ppmd"
+			document.getElementById('myForm').action = "../alphaknow/ppmd"
 			btnOk.type = "submit";
 
 			//			document.querySelectorAll('.table1_chkChild:checked').forEach(function(checkbox) {
