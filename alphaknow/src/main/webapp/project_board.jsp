@@ -130,9 +130,11 @@
 }
 
 .page_wrap {
+	position: absolute;
 	text-align: center;
 	font-size: 0;
-	margin-top: 40%;
+	top: 88%;
+	left: 40%;
 }
 
 .page_nation {
@@ -351,7 +353,7 @@
 									value="<%=board.getBoardNum()%>"></td>
 								<td><%=board.getBoardNum()%></td>
 								<td><%=board.getBoardTitle()%></td>
-								<td><%=board.getEmployee_code()%></td>
+								<td>1234</td>
 								<td><%=board.getBoardWriter()%></td>
 								<td>2024-03-06</td>
 								<td><%=board.getBoardViews()%></td>
@@ -371,7 +373,6 @@
 						<a class="next" href="#"></a> <a class="nnext" href="#"></a>
 					</div>
 
-					<button type="button" id="deleteBtn">글 삭제</button>
 				</div>
 
 			</div>
