@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="classDirectory.byeol.dto.EmployeeDTO"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/eunbyeol_header,main.css">
 <script src="${pageContext.request.contextPath}/js/eunbyeol.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 <style>
@@ -36,6 +39,7 @@
 }
 
 .department_check_label {
+	white-space: nowrap;
 	display: flex;
 }
 
@@ -43,6 +47,8 @@
 .hidden {
 	display: none;
 }
+
+
 </style>
 <script>
 
@@ -62,14 +68,25 @@
 		
 		// 신규등록 눌렀을 때 input창 초기화
 		document.getElementById("new_register").addEventListener("click", function () {
-            Array.from(document.querySelectorAll('[type="text"]')).forEach(input => {
-                input.value = '';
-        });
+	    // 텍스트와 비밀번호 입력란 초기화
+		    Array.from(document.querySelectorAll('[type="text"], [type="password"]')).forEach(input => {
+		        input.value = '';
+		    });
+		
+	    // 부서코드 입력란 초기화
+	    let departmentCode = document.getElementById('departmentCode');
+		    if (departmentCode) {
+		        departmentCode.value = '';
+	    }
+		 // 비밀번호 확인 메시지 초기화
+		let check = document.getElementById('check');
+		    if (check) {
+		        check.textContent = '';
+		    }
 	});
 		
-		
+		// 수정하기
 		// 수정하기 버튼 클릭 시 실행되는 함수
-		let isEdit = false; // 편집 상태인지 확인하는 플래그 변수
 
 		document.getElementById("edit").addEventListener("click", function () {
 		    let selectedRows = document.querySelectorAll('table tbody input[type="checkbox"]:checked');
@@ -105,8 +122,8 @@
 		        }
 
 		        document.getElementById("new_register_pop_wrap").style.display = "block";
-
-		        isEdit = true;  // 편집 상태로 변경
+				
+		        document.getElementById("formAction").value = "update";
 		    } else if (selectedRows.length > 1) {
 		        alert("하나의 사원만 선택해주세요.");
 		    } else {
@@ -115,11 +132,106 @@
 		});
 
 		//삭제하기
+		// "삭제" 버튼 클릭 이벤트
+		document.getElementById('delete').addEventListener('click', function(e) {
+			  e.preventDefault(); // 버튼의 기본 동작을 막습니다.
+
+			  let selectedRows = document.querySelectorAll('table tbody input[class="employee-checkbox"]:checked');
+			  
+			  if (selectedRows.length > 0) {
+			    let form = document.getElementById('employeeForm');
+			    // 기존의 employeeKey hidden 필드를 제거합니다.
+			    document.querySelectorAll('input[name="employeeKey"]').forEach(function(input) {
+			      input.parentNode.removeChild(input);
+			    });
+			    
+			    // 선택된 각 체크박스에 대해 hidden 필드를 폼에 추가합니다.
+			    selectedRows.forEach(function(checkbox) {
+			      let input = document.createElement('input');
+			      input.type = 'hidden';
+			      input.name = 'employeeKey';
+			      input.value = checkbox.value;
+			      form.appendChild(input);
+			    });
+			    
+			    // 폼의 action을 delete로 설정하고 폼을 제출합니다.
+			    form.action = '/alphaknow/employee';
+			    let input = document.createElement('input');
+			    input.type = 'hidden';
+			    input.name = 'action';
+			    input.value = 'delete';
+			    form.appendChild(input);
+			    form.submit();
+			  } else {
+			    // 선택된 행이 없다면 경고 메시지를 출력합니다.
+			    alert('삭제할 직원을 선택해주세요.');
+			  }
+			});
 		
+		
+        });
+
+		
+	
+	// form 내용 체크
+	window.addEventListener('load', function() {
+		document.getElementById('employeeForm').addEventListener('input', function (event) {
+		    // 사원코드가 입력되면 사원 아이디에 자동으로 입력
+		    if (event.target.name === 'employeeKey') {
+		        document.querySelector('input[name="employeeId"]').value = event.target.value;
+		    }
+
+		 // 비밀번호 확인이 비밀번호와 일치하지 않으면 메시지 출력
+       document.getElementById('pw').addEventListener('input', checkPassword);
+		document.getElementById('pw2').addEventListener('input', checkPassword);
+		
+		function checkPassword() {
+		    let pw = document.getElementById('pw').value;
+		    let pw2 = document.getElementById('pw2').value;
+		    let check = document.getElementById('check');
+		
+		    if (pw !== '' && pw2 !== '') {
+		        if (pw === pw2) {
+		            check.textContent = '비밀번호가 일치합니다.';
+		            check.style.color = 'blue';
+		        } else {
+		            check.textContent = '비밀번호가 일치하지 않습니다.';
+		            check.style.color = 'red';
+		        }
+		    } else {
+		        check.textContent = '';
+		    }
+		}
+	});
+		// 중복체크
+		$(document).ready(function() {
+		    $('#employeeSearch').click(function() {
+		        let employeeKey = $('input[name="employeeKey"]').val();
+		        $.ajax({
+		            url: '/alphaknow/employee',
+		            type: 'POST',
+		            data: { employeeKey: employeeKey },
+		            success: function(data) {
+		                if (data.isDuplicate) {
+		                    alert('중복, 사용불가');
+		                    $('input[name="employeeKey"]').val('');
+		                }
+		            }
+		        });
+		    });
 		});
-	
 		
-	
+		// 부서코드 체크박스 하나만 선택 가능
+		document.querySelectorAll('input[type="checkbox"][name="departmentCode"]').forEach(function(element) {
+		    element.addEventListener('change', function() {
+		        document.querySelectorAll('input[type="checkbox"][name="departmentCode"]').forEach(function(otherElement) {
+		            if (otherElement !== element) {
+		                otherElement.checked = false;
+		            }
+		        });
+		    });
+		});
+	});
 	
 	// content 관련 script
 	window.addEventListener('load', function() {
@@ -245,7 +357,7 @@
 								<div class="title">사원(담당)코드</div>
 								<div class="form">
 									<div class="control_set">
-										<button type="button" class="button_basic">중복조회</button>
+										<button type="button" id="employeeSearch" class="button_basic">중복조회</button>
 										<input type="text" name="employeeKey" placeholder="사원코드 입력">
 									</div>
 								</div>
@@ -270,7 +382,7 @@
 								<div class="title">입사일</div>
 								<div class="form">
 									<div class="control_set">
-										<input type="text" name="employeeDate" placeholder="달력 입력 예정">
+										<input type="date" name="employeeDate" placeholder="달력 입력 예정">
 									</div>
 								</div>
 							</li>
@@ -308,7 +420,7 @@
 								<div class="title">사원아이디</div>
 								<div class="form">
 									<div class="control_set">
-										<input type="text" name="employeeId" placeholder="사원아이디 입력">
+										<input type="text" name="employeeId" readOnly>
 									</div>
 								</div>
 							</li>
@@ -316,7 +428,8 @@
 								<div class="title">비밀번호</div>
 								<div class="form">
 									<div class="control_set">
-										<input type="text" name="employeePw" placeholder="비밀번호 입력">
+										<input type="password" id="pw" name="employeePw"
+											placeholder="비밀번호 입력">
 									</div>
 								</div>
 							</li>
@@ -324,9 +437,10 @@
 								<div class="title">비밀번호확인</div>
 								<div class="form">
 									<div class="control_set">
-										<input type="text" name=""
-											employeePwCheck""
-											placeholder="비밀번호 재입력">
+										<input type="password" name="
+											employeePwCheck"
+											id="pw2" placeholder="비밀번호 재입력">
+										<div id=check></div>
 									</div>
 								</div>
 							</li>
@@ -345,8 +459,8 @@
 									<div class="control_set">
 										<div class="use_check">
 											<input type="radio" name="employeementStatus" value="Yes"
-												checked>Yes <input type="radio"
-												name="employeementStatus" value="No">No
+												checked> 재직 <input type="radio"
+												name="employeementStatus" value="No"> 퇴직
 										</div>
 									</div>
 								</div>
@@ -356,6 +470,7 @@
 				</div>
 				<div class="pop_footer_wrap">
 					<div class="pop_footer">
+					<input type="hidden" name="action" id="formAction">
 						<input type="submit" value="저장" class="change_button"
 							id="employee_save">
 						<button type="button" class="button_basic" id="register_reset">다시쓰기</button>

@@ -100,6 +100,54 @@ public class EmployeeDAO {
 	
 	
 	// delete
+	public void deleteEmployee(int employeeKey) throws Exception {
+		try (
+				PreparedStatement pstmt = conn.prepareStatement("DELETE FROM employee WHERE employee_key = ?")) {
+
+			// 삭제할 장비의 equipment_code를 설정
+			pstmt.setInt(1, employeeKey);
+
+			// SQL 쿼리 실행
+			int affectedRows = pstmt.executeUpdate();
+
+			if (affectedRows == 0) {
+				throw new SQLException("장비 삭제 실패: 해당 장비가 데이터베이스에 없습니다.");
+			}
+		}
+	}
+	// 중복조회
+	public boolean checkEmployeeKey(int employeeKey) {
+	    String sql = "SELECT * FROM employee WHERE employeeKey = ?";
+	    try (
+	        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, employeeKey);
+	        ResultSet rs = pstmt.executeQuery();
+	        return rs.next();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
 	
+	// 업데이트
+	public int updateEmployee(EmployeeDTO employee) {
+	    String SQL = "UPDATE employee SET employeeName = ?, departmentCode = ?, employeePhone = ?, jobGrade = ?, managerPhone = ?, employeeDate = ?, employeeId = ?, employeePw = ?, employeementStatus = ? WHERE employeeKey = ?";
+	    try (PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+	        pstmt.setString(1, employee.getEmployeeName());
+	        pstmt.setInt(2, employee.getDepartmentCode());
+	        pstmt.setString(3, employee.getEmployeePhone());
+	        pstmt.setString(4, employee.getJobGrade());
+	        pstmt.setString(5, employee.getManagerPhone());
+	        pstmt.setDate(6, employee.getEmployeeDate());
+	        pstmt.setString(7, employee.getEmployeeId());
+	        pstmt.setString(8, employee.getEmployeePw());
+	        pstmt.setString(9, employee.getEmployeementStatus());
+	        pstmt.setInt(10, employee.getEmployeeKey());
+	        return pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return -1; // 데이터베이스 오류
+	}
 
 }

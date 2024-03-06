@@ -50,7 +50,11 @@ public class JdbcConnectionUtil {
 	}
 	
 	public Connection getConnection() throws SQLException{
-		
+		    if (con == null || con.isClosed()) {
+		        con = DriverManager.getConnection(url, user, password);
+		}
 		return con;
 	}
+	
+	
 }

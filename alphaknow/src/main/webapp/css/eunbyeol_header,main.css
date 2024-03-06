@@ -37,9 +37,10 @@
 }
 
 /* content main 영역*/
-#content_main_wrap {
+#main_content_wrap {
 	width: 100%;
-	background-color: rbg(222,226,230);
+	background-color: rbg(247,248,249);
+	overflow-y: auto;
 }
 
 /* 메인테이블 조절*/
@@ -58,7 +59,7 @@ thead tr {
 
 th, td {
 	padding: 0.8%;
-	border: 1px solid rgba(170, 165, 165, 0.826);
+	border: 1px solid rgba(255,255,255);
 }
 
 /* content_main button 간격 조절 */
@@ -164,6 +165,23 @@ input:focus {
 	width: 12px;
 }
 
+/* 팝업 스크롤바 배경 */
+.pop_content_com::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: #f5f5f5;
+}
+
+/* 스크롤바 핸들(움직이는 부분) */
+.pop_content_com::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: rgb(222, 226, 230);
+}
+
+/* 스크롤바 핸들 호버 시 */
+.pop_content_com::-webkit-scrollbar-thumb:hover {
+	background-color: rgb(206, 212, 218);
+}
+
 /* 스크롤바 배경 */
 .pop_content_com::-webkit-scrollbar-track {
 	border-radius: 10px;
@@ -180,6 +198,8 @@ input:focus {
 .pop_content_com::-webkit-scrollbar-thumb:hover {
 	background-color: rgb(206, 212, 218);
 }
+
+
 
 /* 팝업창 리스트에 대한 설정*/
 .wrapper_ul {
