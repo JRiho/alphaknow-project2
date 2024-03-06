@@ -47,7 +47,7 @@ public class alphafilter extends HttpFilter implements Filter {
 
         request.setCharacterEncoding("UTF-8"); // 모든 요청에 대해 UTF-8 인코딩 적용
         
-        if (uri.indexOf("project_login.jsp") != -1 || uri.indexOf("/login") != -1|| uri.endsWith(".css") || uri.endsWith(".js")) {
+        if (uri.indexOf("project_login.jsp") != -1 || uri.indexOf("/login") != -1|| uri.endsWith(".css") || uri.endsWith(".js")|| uri.endsWith(".png")) {
             chain.doFilter(req, res); // 요청을 다음 필터나 대상 리소스로 전달
         } else {
             // 로그인 여부 확인
