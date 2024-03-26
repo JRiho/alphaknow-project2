@@ -1,4 +1,4 @@
-package classDirectory.byeol.dto;
+package classdirectory.byeol.dto;
 
 import java.sql.Date;
 
