@@ -1,4 +1,4 @@
-package classdirectory.byeol;
+package classDirectory.byeol;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import classdirectory.byeol.connection.JdbcConnectionUtil;
-import classdirectory.byeol.dao.EmployeeDAO;
-import classdirectory.byeol.dto.EmployeeDTO;
+import classDirectory.byeol.connection.JdbcConnectionUtil;
+import classDirectory.byeol.dao.EmployeeDAO;
+import classDirectory.byeol.dto.EmployeeDTO;
 
 @WebServlet("/employee")
 public class EmployeeServlet extends HttpServlet {

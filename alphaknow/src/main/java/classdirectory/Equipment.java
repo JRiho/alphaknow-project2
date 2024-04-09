@@ -1,4 +1,4 @@
-package classdirectory;
+package classDirectory;
 
 public class Equipment {
     private int equipmentCode;

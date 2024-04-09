@@ -37,7 +37,6 @@
 			<div id="header1_div">
 				<!-- 버튼 div -->
 				<div id="btn_wrap_div">
-
 					<button type="button" id="btn_add">추가</button>
 					<button type="button" id="btn_modify">수정</button>
 					<button type="button" id="btn_delete">삭제</button>
