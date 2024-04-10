@@ -40,112 +40,24 @@ body {
     height: 25px;
 }
 
+
+
+
+
+
+
 /* 차트, 월 표시 전체 div */
 #chartInfo {
-    /* border: 1px dotted black; */
-    border: 1px solid #cccccc;
-
-    display: flex;
-
-    height: 93.5%;
-}
-
-/* 차트 표 왼쪽 부분 1~100% 라인 */
-#chart_num {
-    /* border: 1px dotted black; */
-
-    height: 90%;
-    width: 1.5%;
-
-    display: flex;
-    overflow-x: visible;
-
-    flex-direction: column;
-    justify-content: space-between
-}
-
-/* 라인 자체 */
-.line {
-    /* border-bottom: 1px solid black; */
-    border-bottom: 1px solid #cccccc;
-    width: 6500%;
-
-    /* 그래프 뒤로 라인 나오게 하기 */
-    z-index: -1;
-    /* 우측으로 밀기 */
-    margin-left: 300%;
-    /* 라인 = 바 맞추기 */
-    margin-bottom: 1px;
-}
-
-/* 라인 앞 숫자 div */
-#chart_line {
-    /* border: 1px dotted black; */
-    height: 90%;
-    width: 1.5%;
-
-    display: flex;
-
-    flex-direction: column;
-    justify-content: space-between
-}
-
-/* 라인 앞 숫자 자체 */
-.line_label {
-    /* border: 1px solid black; */
-    margin-left: -10px;
-    font-size: 10px;
-}
-
-/* 라인 제외 바차트, 월표시 묶음 */
-#bar_month_wrap {
-    /* border: 1px dotted black; */
     width: 100%;
+    height: 95%;
 }
 
-/* 바 차트 컨테이너 div */
-#bar_container {
-    /* border: 1px dotted black; */
-    border: 1px solid #cccccc;
-    width: 100% -1px;
-    height: 90%;
 
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-}
 
-/* 월 컨테이너 div */
-#month_container {
-    /* border: 1px dotted black; */
-    width: 100%;
-    height: 10%;
 
-    display: flex;
-    justify-content: space-around;
-}
 
-/* 바 자체 */
-.bar {
-    border: 1px solid black;
-    background-color: lightblue;
-    width: 30px;
-    /* height: 10%; */
 
-    /* 초기 높이를 0으로 설정 */
-    height: 0;
-    /* growHeight 애니메이션 추가 */
-    /* forwards 를 통해 애니메이션이 끝난 후 높이 유지 */
-    animation: growHeight 0.7s ease-out forwards;
-}
 
-/* .bar 애니메이션 효과 */
-@keyframes growHeight {
-    to {
-        height: 30%;
-        /* 최종 높이: 10% */
-    }
-}
 
 /* ////////////////////////////////////////////////// */
 /* 월 칸 테두리 */
