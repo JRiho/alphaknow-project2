@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -165,6 +167,19 @@ String contextPath = request.getContextPath();
 		<!-- downdiv 끝 -->
 
 	</div>
+	<c:if test="${ list != null }">
+		<c:forEach var="list" items="${ list }">
+			<input type="hidden" value="${ list.workYear }" data-type="workYear">
+			<input type="hidden" value="${ list.workMonth }" data-type="workMonth">
+			<input type="hidden" value="${ list.workWeek }" data-type="workWeek">
+			<input type="hidden" value="${ list.workDay }" data-type="workDay">
+			<input type="hidden" value="${ list.itemName }" data-type="itemName">
+			<input type="hidden" value="${ list.productionAmount }" data-type="productionAmount">
+			<input type="hidden" value="${ list.makeAmount }" data-type="makeAmount">
+			<input type="hidden" value="${ list.achievementRate }" data-type="achievementRate">
+			<input type="hidden" value="${ list.defectRate }" data-type="defectRate">
+		</c:forEach>
+	</c:if>
 </body>
 
 </html>

@@ -28,7 +28,7 @@ public class PppChartServlet extends HttpServlet {
 			}
 			
 			request.setAttribute("list", pppList);
-			request.getRequestDispatcher("emp.jsp").forward(request, response);			
+			request.getRequestDispatcher("productionperf/production_performance_chart.jsp").forward(request, response);			
 		}
 		
 		
