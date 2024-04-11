@@ -102,12 +102,6 @@ public class ProductionPlanManagementSelect extends HttpServlet {
 				dto.setRemainAmount(remainAmount);
 				dto.setStartdate(startDate);
 				dto.setEnddate(endDate);				
-				
-				System.out.println("Original Start Date: " + startDate);
-				System.out.println("Original End Date: " + endDate);
-				
-				System.out.println("DTO Start Date: " + dto.getStartdate());
-				System.out.println("DTO End Date: " + dto.getEnddate());
 
 				list.add(dto);
 				System.out.println(dto.toString());

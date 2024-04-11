@@ -1,5 +1,5 @@
 // 싱글톤 적용
-package classdirectory.byeol.connection;
+package classDirectory.byeol.connection;
 
 
 import java.sql.Connection;

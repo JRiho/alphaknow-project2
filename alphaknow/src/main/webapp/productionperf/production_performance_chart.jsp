@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,6 +17,7 @@ String contextPath = request.getContextPath();
 
 <link rel="stylesheet" href="<%=contextPath%>/css/production_performance_chart.css">
 <script src="<%=contextPath%>/js/production_performance_chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 </head>
 <style>
 </style>
@@ -37,55 +40,21 @@ String contextPath = request.getContextPath();
 
 			<div id="selbox_div">
 				<select name="pcbYear" id="pcb_year">
-					<option value="2022">2022년</option>
 					<option value="2023">2023년</option>
+					<option value="2024">2024년</option>
 				</select> <select name="pcbType" id="pcb_type">
 					<option value="1">pcb명</option>
 				</select> <select name="pcbChart" id="pcb_chart">
 					<option value="1">계획량 / 실생산량</option>
 					<option value="1">달성률 / 불량률</option>
 				</select>
+				<button type="button">찾기</button>
 			</div>
+
 
 			<div id="chartInfo">
-				<div id="chart_num"></div>
-				<div id="chart_line"></div>
-
-				<div id="bar_month_wrap">
-					<div id="bar_container">
-						<div class="bar" id="bar1"></div>
-						<div class="bar" id="bar2"></div>
-						<div class="bar" id="bar3"></div>
-						<div class="bar" id="bar4"></div>
-						<div class="bar" id="bar5"></div>
-						<div class="bar" id="bar6"></div>
-						<div class="bar" id="bar7"></div>
-						<div class="bar" id="bar8"></div>
-						<div class="bar" id="bar9"></div>
-						<div class="bar" id="bar10"></div>
-						<div class="bar" id="bar11"></div>
-						<div class="bar" id="bar12"></div>
-					</div>
-					<div id="month_container">
-						<div class="month" id="month1">1월</div>
-						<div class="month" id="month2">2월</div>
-						<div class="month" id="month3">3월</div>
-						<div class="month" id="month4">4월</div>
-						<div class="month" id="month5">5월</div>
-						<div class="month" id="month6">6월</div>
-						<div class="month" id="month7">7월</div>
-						<div class="month" id="month8">8월</div>
-						<div class="month" id="month9">9월</div>
-						<div class="month" id="month10">10월</div>
-						<div class="month" id="month11">11월</div>
-						<div class="month" id="month12">12월</div>
-					</div>
-				</div>
-
+				<canvas id="myChart"></canvas>
 			</div>
-
-
-
 
 		</div>
 		<!-- updiv 끝 -->
@@ -163,7 +132,7 @@ String contextPath = request.getContextPath();
 
 						<!-- info_table_tbody -->
 						<tbody id="info_table_tbody">
-
+							
 						</tbody>
 					</table>
 					<!-- info_table 끝 -->
@@ -178,6 +147,21 @@ String contextPath = request.getContextPath();
 		<!-- downdiv 끝 -->
 
 	</div>
+	<c:if test="${ list != null }">
+		<c:forEach var="list" items="${ list }">
+		<div>
+			<input type="hidden" value="${ list.workYear }" data-type="workYear" data-month="${ list.workMonth }" data-week="${ list.workWeek }" data-item="${ list.itemName }">
+			<input type="hidden" value="${ list.workMonth }" data-type="workMonth">
+			<input type="hidden" value="${ list.workWeek }" data-type="workWeek">
+			<input type="hidden" value="${ list.workDay }" data-type="workDay">
+			<input type="hidden" value="${ list.itemName }" data-type="itemName">
+			<input type="hidden" value="${ list.productionAmount }" data-type="productionAmount">
+			<input type="hidden" value="${ list.makeAmount }" data-type="makeAmount">
+			<input type="hidden" value="${ list.achievementRate }" data-type="achievementRate">
+			<input type="hidden" value="${ list.defectRate }" data-type="defectRate">
+		</div>
+		</c:forEach>
+	</c:if>
 </body>
 
 </html>
