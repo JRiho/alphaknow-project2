@@ -17,6 +17,7 @@ public class PppChartServlet extends HttpServlet {
 	ProductionPlanPerformanceDAO pppDAO = new ProductionPlanPerformanceDAO();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 모든 값 가져오기
 		String select = request.getParameter("select");
 		if("all".equals(select)) {
 			
@@ -27,14 +28,14 @@ public class PppChartServlet extends HttpServlet {
 				System.out.println("["+ i +"/toString]"+ dto.toString());
 			}
 			
+			System.out.println("select 완료");
 			request.setAttribute("list", pppList);
 			request.getRequestDispatcher("productionperf/production_performance_chart.jsp").forward(request, response);			
 		}
 		
-		
+		// 차트 임의의 값 insert
 		String insert = request.getParameter("insert");
 		if("all".equals(insert)) {
-			
 			int result = pppDAO.insertProductionData();
 			if(result == 1) {
 				System.out.println("insert 완료");				

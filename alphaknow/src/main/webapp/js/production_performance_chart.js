@@ -15,20 +15,20 @@ window.addEventListener("load", function() {
 		}
 	}
 
-//	let tbody = document.querySelector("#info_table_tbody")
-//
-//	let rowCount2 = 7;
-//	let colCount2 = 6;
-//
-//	for (let i = 1; i <= rowCount2; i++) {
-//		let tr = document.createElement('tr');
-//		tbody.appendChild(tr);
-//		for (let j = 1; j <= colCount2; j++) {
-//			let td = document.createElement('td');
-//			tr.appendChild(td);
-//			td.setAttribute("id", `table1_${i + 1}_${j}`);
-//		}
-//	}
+	let tbody = document.querySelector("#info_table_tbody")
+
+	let rowCount2 = 7;
+	let colCount2 = 6;
+
+	for (let i = 1; i <= rowCount2; i++) {
+		let tr = document.createElement('tr');
+		tbody.appendChild(tr);
+		for (let j = 1; j <= colCount2; j++) {
+			let td = document.createElement('td');
+			tr.appendChild(td);
+			td.setAttribute("id", `table1_${i + 1}_${j}`);
+		}
+	}
 })
 
 // 컬럼명
@@ -77,3 +77,55 @@ window.addEventListener("load", function() {
 		options: options
 	});
 })
+
+//window.addEventListener("load", () => {
+//	let y2023m1w1i1all = document.querySelectorAll('input[data-type="workYear"][value="2023"][data-month="1"][data-week="1"][data-item="Item1"]');
+//	y2023m1w1i1all.forEach((y2023m1w1i1) => {
+//		let y2023m1w1i1div = y2023m1w1i1.parentNode;	// item1의 1주차의 1일부터 7일까지 정보가 담긴 div
+//		console.log(y2023m1w1i1div);
+//	})
+//
+//
+//	doucument.querySelector("#week1").addEventListener("click", () => {
+//		
+//	})
+//})
+
+
+// 주차 버튼 클릭 이벤트
+window.addEventListener("load", () => {
+    document.querySelector("#week1").addEventListener("click", () => {
+        let y2023m1w1i1all = document.querySelectorAll('input[data-type="workYear"][value="2023"][data-month="1"][data-week="1"][data-item="Item1"]');
+        
+        // 해당 데이터를 테이블에 채우기
+        let rowData = [];
+        y2023m1w1i1all.forEach((y2023m1w1i1) => {
+			let y2023m1w1i1div = y2023m1w1i1.parentNode; // item1의 1주차의 1일부터 7일까지 정보가 담긴 div
+			console.log(y2023m1w1i1div)
+            let dayValue = y2023m1w1i1div.querySelector('input[data-type="workDay"]').value;
+            let itemNameValue = y2023m1w1i1div.querySelector('input[data-type="itemName"]').value;
+            let productionAmountValue = y2023m1w1i1div.querySelector('input[data-type="productionAmount"]').value;
+            let makeAmountValue = y2023m1w1i1div.querySelector('input[data-type="makeAmount"]').value;
+            let achievementRateValue = y2023m1w1i1div.querySelector('input[data-type="achievementRate"]').value;
+            let defectRateValue = y2023m1w1i1div.querySelector('input[data-type="defectRate"]').value;
+            rowData.push({ dayValue: dayValue, itemNameValue: itemNameValue, productionAmountValue: productionAmountValue, makeAmountValue: makeAmountValue, achievementRateValue: achievementRateValue, defectRateValue: defectRateValue });
+            console.log(rowData[0]);
+        });
+
+        // 테이블에 데이터 삽입
+        let rowCount = 7;
+        let colCount = 6;
+        for (let i = 1; i <= rowCount; i++) {
+            for (let j = 1; j <= colCount; j++) {
+                let cellId = `table1_${i + 1}_${j}`;
+                let td = document.querySelector(`#${cellId}`);
+
+                if (rowData[j]) {
+                    td.textContent = rowData[j].value;
+                }
+            }
+        }
+    });
+});
+
+

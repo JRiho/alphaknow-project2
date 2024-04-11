@@ -132,27 +132,7 @@ String contextPath = request.getContextPath();
 
 						<!-- info_table_tbody -->
 						<tbody id="info_table_tbody">
-							<tr>
-								<td></td><td></td><td></td><td></td><td></td><td></td>
-							</tr>
-							<tr>
-								<td></td><td></td><td></td><td></td><td></td><td></td>
-							</tr>
-							<tr>
-								<td></td><td></td><td></td><td></td><td></td><td></td>
-							</tr>
-							<tr>
-								<td></td><td></td><td></td><td></td><td></td><td></td>
-							</tr>
-							<tr>
-								<td></td><td></td><td></td><td></td><td></td><td></td>
-							</tr>
-							<tr>
-								<td></td><td></td><td></td><td></td><td></td><td></td>
-							</tr>
-							<tr>
-								<td></td><td></td><td></td><td></td><td></td><td></td>
-							</tr>
+							
 						</tbody>
 					</table>
 					<!-- info_table 끝 -->
@@ -169,7 +149,8 @@ String contextPath = request.getContextPath();
 	</div>
 	<c:if test="${ list != null }">
 		<c:forEach var="list" items="${ list }">
-			<input type="hidden" value="${ list.workYear }" data-type="workYear">
+		<div>
+			<input type="hidden" value="${ list.workYear }" data-type="workYear" data-month="${ list.workMonth }" data-week="${ list.workWeek }" data-item="${ list.itemName }">
 			<input type="hidden" value="${ list.workMonth }" data-type="workMonth">
 			<input type="hidden" value="${ list.workWeek }" data-type="workWeek">
 			<input type="hidden" value="${ list.workDay }" data-type="workDay">
@@ -178,6 +159,7 @@ String contextPath = request.getContextPath();
 			<input type="hidden" value="${ list.makeAmount }" data-type="makeAmount">
 			<input type="hidden" value="${ list.achievementRate }" data-type="achievementRate">
 			<input type="hidden" value="${ list.defectRate }" data-type="defectRate">
+		</div>
 		</c:forEach>
 	</c:if>
 </body>
