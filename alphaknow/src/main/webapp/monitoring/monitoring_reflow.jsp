@@ -17,7 +17,6 @@
 
 <body>
 
-    <%@ include file="../mainheader.jsp"%>
 
 <div id="content">
             <div id="container"></div>

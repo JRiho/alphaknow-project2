@@ -12,7 +12,7 @@
 </head>
 <style>
     #container {
-        width: 500px;
+        width: 400px;
         height: 330px;
     }
 </style>

@@ -79,38 +79,16 @@
             <div id="content_box2">
                 <!-- iframe 영역 -->
                 <div id="frame">
-                    <iframe id="iframe" src="../monitoring/reflow_iframe.html" frameborder=0 framespacing=0
+                    <iframe id="iframe" src="monitoring/reflow_iframe.jsp" frameborder=0 framespacing=0
                         marginheight=0 marginwidth=0 scrolling=no vspace=0>
                         1
                     </iframe>
-                    <div id="iframe_div">
-                        <div id="iframe_div_child">
-                            <ul id="iframe_ul">
-                                <li>1</li>
-                                <li>2</li>
-                                <li>3</li>
-                                <li>4</li>
-                                <li>5</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 <div id="frame">
-                    <iframe id="iframe" src="monitoring/downtimeRate.html" frameborder=0 framespacing=0 marginheight=0 marginwidth=0
+                    <iframe id="iframe" src="monitoring/project_downtimeRate.jsp" frameborder=0 framespacing=0 marginheight=0 marginwidth=0
                         scrolling=no vspace=0>
 
                     </iframe>
-                    <div id="iframe_div">
-                        <div id="iframe_div_child">
-                            <ul id="iframe_ul">
-                                <li>1</li>
-                                <li>2</li>
-                                <li>3</li>
-                                <li>4</li>
-                                <li>5</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
