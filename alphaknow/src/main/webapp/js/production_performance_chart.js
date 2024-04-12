@@ -127,10 +127,9 @@ window.addEventListener("load", () => {
 			for (let j = 1; j <= colCount; j++) {
 				let cellId = `table1_${i + 1}_${j}`;
 				let td = document.querySelector(`#${cellId}`);
-
-				if (rowData[j]) {
-					td.textContent = rowData[j].value;
-				}
+				
+				td.textContent = rowData[j].value;
+				
 			}
 		}
 	});
