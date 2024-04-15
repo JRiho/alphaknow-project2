@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../css/star.css">
+<link rel="stylesheet" href="/alphaknow/css/star.css">
 
 <!-- jQuery 라이브러리를 불러오는 코드 -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

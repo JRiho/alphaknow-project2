@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../css/star.css">
-<link rel="stylesheet" href="../css/calendar.css">
+<link rel="stylesheet" href="/alphaknow/css/star.css">
+<link rel="stylesheet" href="/alphaknow/css/calendar.css">
 
 <!-- jQuery 라이브러리를 불러오는 코드 -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -18,7 +18,7 @@
 	href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- 달력 js -->
-<script src="../js/calendar.js"></script>
+<script src="/alphaknow/js/calendar.js"></script>
 
 <style>
 #main_content {

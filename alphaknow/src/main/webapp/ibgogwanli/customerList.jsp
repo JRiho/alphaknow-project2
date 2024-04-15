@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>CutstomerList</title>
 <!-- 은별 공통 css. JS -->
-<link rel="stylesheet" href="../css/eunbyeol_header,main.css">
-<script src="../js/eunbyeol.js"></script>
+<link rel="stylesheet" href="/alphaknow/css/eunbyeol_header,main.css">
+<script src="/alphaknow/js/eunbyeol.js"></script>
 
 
 <style>
